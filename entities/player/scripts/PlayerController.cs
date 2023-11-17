@@ -23,7 +23,7 @@ public partial class PlayerController : CharacterBody3D
         if (Input.IsActionPressed("ui_up"))
             velocity.Z -= 1;
 
-        MoveAndSlide(velocity.Normalized() * speed, Vector3.Up);
+        // MoveAndSlide(velocity.Normalized() * speed, Vector3.Up);
 
     }
    
