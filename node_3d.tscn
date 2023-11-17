@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2nefsm4wjdm4"]
+
+[ext_resource type="Script" path="res://new_script.cs" id="1_ni3ov"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3yvu7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0y3bc"]
+size = Vector3(5, 0, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6iip"]
+size = Vector3(4.95446, 1, 4.42593)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_3yvu7")
+script = ExtResource("1_ni3ov")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_0y3bc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_r6iip")
