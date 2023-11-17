@@ -16,6 +16,12 @@ shape = SubResource("CapsuleShape3D_ntpgi")
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_5xage")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 75, 75)
+projection = 1
 fov = 90.0
+size = 30.0
+near = 0.01
+far = 1500.0
