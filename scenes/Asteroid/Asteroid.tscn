@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://578522jqo740"]
+[gd_scene load_steps=3 format=3 uid="uid://dgeoph15r1jy7"]
 
-[ext_resource type="MeshLibrary" uid="uid://dpqgj64o2hpk0" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
+[ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
 
 [node name="Asteroid" type="Node3D"]
