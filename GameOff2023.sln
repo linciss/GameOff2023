@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOff2023", "GameOff2023.csproj", "{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{6E3D8525-9CA0-4EC1-A58D-E2AF7C8E97C1}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F663F38-2FF4-441D-945B-F570CA8DCE30}
+	EndGlobalSection
+EndGlobal
