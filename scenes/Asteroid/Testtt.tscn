@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn615v6xgum7n"]
+
+[ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="1_fm252"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bwjhh"]
+
+[node name="Testtt" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.352201, -1.52846, -0.326958)
+mesh = SubResource("CylinderMesh_bwjhh")
+
+[node name="Player" parent="." instance=ExtResource("1_fm252")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.671687, 1.73896, 0.153921)
