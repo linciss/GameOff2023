@@ -24,13 +24,6 @@ public partial class Player : CharacterBody3D
     {
         Vector3 velocity = Velocity;
 
-        // Add the gravity.
-        if (!IsOnFloor())
-            velocity.Y -= gravity * (float)delta;
-
-        // Handle Jump.
-        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-            velocity.Y = JumpVelocity;
 
         Transform3D camXform = camera.GlobalTransform;
         Vector3 cameraForward = -camXform.Basis.Z; // Assuming camera's forward axis is -z.
@@ -38,18 +31,34 @@ public partial class Player : CharacterBody3D
 
         Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_down", "ui_up");
         Vector3 input = cameraForward * inputDir.Y + cameraRight * inputDir.X;
-        input.Y = 0; // Disregard vertical movement.
+        input.Y = 0; // Disregard vertical movement.  
 
         if (input.LengthSquared() > 0)
         {
             input = input.Normalized() * Speed;
-            velocity = input;
+            velocity.X = input.X;
+            velocity.Z = input.Z;
         }
         else
         {
             velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
             velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
         }
+
+        // Add the gravity.
+        if (!IsOnFloor())
+        {
+            velocity.Y -= gravity * (float)delta;
+            GD.Print(velocity);
+        }
+        else
+        {
+            velocity.Y = 0;
+        }
+
+        // Handle Jump.
+        if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+            velocity.Y = JumpVelocity;
 
         Velocity = velocity;
 
