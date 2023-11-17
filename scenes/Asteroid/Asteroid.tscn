@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://578522jqo740"]
+[gd_scene load_steps=2 format=3 uid="uid://578522jqo740"]
+
+[ext_resource type="Script" path="res://scenes/Asteroid/HelloWorld.cs" id="1_ehons"]
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_ehons")
