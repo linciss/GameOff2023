@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://drkul2vi4b6ju"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xx1v5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klflj"]
+albedo_color = Color(0.372549, 0.372549, 0.372549, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n1bkx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_01baf"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_makqu"]
+albedo_color = Color(0.372549, 0.372549, 0.372549, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ew0rr"]
+size = Vector3(1, 0.5, 1)
+
+[node name="MeshLibraryScene" type="Node3D"]
+
+[node name="Box_Rock" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_xx1v5")
+surface_material_override/0 = SubResource("StandardMaterial3D_klflj")
+
+[node name="Area3D" type="Area3D" parent="Box_Rock"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box_Rock/Area3D"]
+shape = SubResource("BoxShape3D_n1bkx")
+
+[node name="Slab_Rock" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+mesh = SubResource("BoxMesh_01baf")
+skeleton = NodePath("../Box_Rock")
+surface_material_override/0 = SubResource("StandardMaterial3D_makqu")
+
+[node name="Area3D" type="Area3D" parent="Slab_Rock"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Slab_Rock/Area3D"]
+shape = SubResource("BoxShape3D_ew0rr")
