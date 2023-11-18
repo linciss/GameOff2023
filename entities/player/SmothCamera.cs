@@ -1,4 +1,4 @@
-using Godot;
+/*using Godot;
 using System;
 
 public partial class SmothCamera : Camera3D
@@ -28,3 +28,4 @@ public partial class SmothCamera : Camera3D
         LookAt(Player.GlobalTransform.Origin, Vector3.Up);
     }
 }
+*/

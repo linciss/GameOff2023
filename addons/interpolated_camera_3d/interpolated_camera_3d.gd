@@ -6,21 +6,21 @@ class_name InterpolatedCamera3D
 
 # The factor to use for asymptotical translation lerping.
 # If 0, the camera will stop moving. If 1, the camera will move instantly.
-@export_range(0, 1, 0.001) var translate_speed := 0.95
+@export_range(0, 1, 0.001) var translate_speed := 0
 
 # The factor to use for asymptotical rotation lerping.
 # If 0, the camera will stop rotating. If 1, the camera will rotate instantly.
-@export_range(0, 1, 0.001) var rotate_speed := 0.95
+@export_range(0, 1, 0.001) var rotate_speed := 0
 
 # The factor to use for asymptotical FOV lerping.
 # If 0, the camera will stop changing its FOV. If 1, the camera will change its FOV instantly.
 # Note: Only works if the target node is a Camera3D.
-@export_range(0, 1, 0.001) var fov_speed := 0.95
+@export_range(0, 1, 0.001) var fov_speed := 1
 
 # The factor to use for asymptotical Z near/far plane distance lerping.
 # If 0, the camera will stop changing its Z near/far plane distance. If 1, the camera will do so instantly.
 # Note: Only works if the target node is a Camera3D.
-@export_range(0, 1, 0.001) var near_far_speed := 0.95
+@export_range(0, 1, 0.001) var near_far_speed := 1
 
 # The node to target.
 # Can optionally be a Camera3D to support smooth FOV and Z near/far plane distance changes.
