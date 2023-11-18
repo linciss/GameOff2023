@@ -16,7 +16,7 @@ public partial class Player : CharacterBody3D
 
     public override void _Ready()
     {
-        camera = GetNode<Camera3D>("Camera3D");
+        //camera = GetNode<Camera3D>("Camera3D");
     }
 
 
@@ -61,20 +61,7 @@ public partial class Player : CharacterBody3D
 
         Velocity = velocity;
 
-        //tinyJump();
-
         MoveAndSlide();
-
-        GD.Print(GlobalTransform.Origin);
         
-    }
-
-    private void tinyJump()
-    {
-        if (IsOnWall())
-        {
-            Vector3 wallNormal = GetWallNormal();
-            Velocity = wallNormal * 5;
-        }
     }
 }

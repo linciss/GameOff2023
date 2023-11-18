@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="GameOff2023"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/interpolated_camera_3d/plugin.cfg")
+
 [input]
 
 ui_left={
