@@ -1,15 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://c55rjsd67a4bo"]
+[gd_scene load_steps=8 format=3 uid="uid://c55rjsd67a4bo"]
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
+[ext_resource type="Script" path="res://entities/player/SmoothCamera.cs" id="2_5twgr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
+height = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5xage"]
+height = 1.6
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ny50r"]
+length = 0.6
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_enqa3"]
+length = 0.6
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_cg2v6"]
+length = 0.6
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_63rsw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ntpgi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -22,3 +35,20 @@ projection = 1
 fov = 90.0
 size = 15.0
 near = 0.019
+script = ExtResource("2_5twgr")
+
+[node name="SeperationRay_x+" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 0, 0)
+shape = SubResource("SeparationRayShape3D_ny50r")
+
+[node name="SeperationRay_x-" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 0, 0)
+shape = SubResource("SeparationRayShape3D_enqa3")
+
+[node name="SeperationRay_z+" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.5)
+shape = SubResource("SeparationRayShape3D_cg2v6")
+
+[node name="SeperationRay_z-" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+shape = SubResource("SeparationRayShape3D_cg2v6")
