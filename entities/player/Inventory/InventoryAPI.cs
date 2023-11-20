@@ -24,6 +24,23 @@ public partial class InventoryAPI :  Node
         }
     }
 
+    public static void RemoveItem(ItemEnum itemEnum, int quantity)
+    {
+        if (inventory.ContainsKey(itemEnum))
+        {
+            inventory[itemEnum].RemoveQuantity(quantity);
+
+            if (inventory[itemEnum].quantity < 0)
+            {
+                inventory.Remove(itemEnum);
+            }
+        }
+        else
+        {
+            GD.Print("Item not found in inventory");
+        }
+    }
+
     public static void PrintAllItems()
     {
         GD.Print("INVENTORY!!!");

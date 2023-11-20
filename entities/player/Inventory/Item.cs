@@ -42,6 +42,18 @@ using System.ComponentModel.DataAnnotations;
         }
     }
 
+    public void RemoveQuantity(int amount)
+    {
+        if (quantity - amount < 0)
+        {
+            quantity = 0;
+        }
+        else
+        {
+            quantity -= amount;
+        }
+    }
+
 
 
     //clones the item for the dictionary
