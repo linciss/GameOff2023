@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://c55rjsd67a4bo"]
+[gd_scene load_steps=8 format=3 uid="uid://c55rjsd67a4bo"]
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
-[ext_resource type="PackedScene" uid="uid://c275f2bi7bbt8" path="res://entities/player/camera_3d_old.tscn" id="2_0twgb"]
-[ext_resource type="Script" path="res://entities/player/IHATEMYLIFE.gd" id="3_q0kt0"]
+[ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_8epgl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
 height = 1.0
@@ -21,34 +20,34 @@ length = 0.6
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_63rsw")
-camera = NodePath("Camera3D")
+camera = NodePath("Camera3D2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CapsuleShape3D_ntpgi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.2, 0)
 mesh = SubResource("CapsuleMesh_5xage")
 
 [node name="SeperationRay_x+" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.35, 0, 0.35)
 shape = SubResource("SeparationRayShape3D_ny50r")
 
 [node name="SeperationRay_x-" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.35, 0, -0.35)
 shape = SubResource("SeparationRayShape3D_enqa3")
 
 [node name="SeperationRay_z+" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.35, 0, 0.35)
 shape = SubResource("SeparationRayShape3D_cg2v6")
 
 [node name="SeperationRay_z-" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.35, 0, -0.35)
 shape = SubResource("SeparationRayShape3D_cg2v6")
 
-[node name="Camera3D" parent="." instance=ExtResource("2_0twgb")]
-transform = Transform3D(0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, -10, 10, 10)
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, -0.353553, 0.612373, -10, 10, 10)
+projection = 1
 size = 15.0
-far = 62.68
-script = ExtResource("3_q0kt0")
+script = ExtResource("2_8epgl")
