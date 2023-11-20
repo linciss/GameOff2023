@@ -28,6 +28,13 @@ public partial class TestScript : MeshInstance3D
                     InventoryAPI.PrintAllItems();
                 }
             }
+            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "remove steel")
+            {
+                {
+                    InventoryAPI.RemoveItem(ItemEnum.RawSteel, 1);
+                    InventoryAPI.PrintAllItems();
+                }
+            }
         }
         
     }

@@ -54,6 +54,17 @@ skeleton = NodePath("../../GridMap")
 shape = SubResource("BoxShape3D_472pw")
 disabled = true
 
+[node name="remove steel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.60157, 1.90548, 0)
+mesh = SubResource("CapsuleMesh_qarfu")
+skeleton = NodePath("../copper")
+script = ExtResource("5_cm37f")
+
+[node name="Area3D" type="Area3D" parent="remove steel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="remove steel/Area3D"]
+shape = SubResource("CapsuleShape3D_5wu6e")
+
 [node name="steel" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56962, 2.23901, 0)
 mesh = SubResource("CapsuleMesh_qarfu")
@@ -75,5 +86,6 @@ script = ExtResource("5_cm37f")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="copper/Area3D"]
 shape = SubResource("CapsuleShape3D_5wu6e")
 
+[connection signal="input_event" from="remove steel/Area3D" to="remove steel" method="_on_area_3d_input_event"]
 [connection signal="input_event" from="steel/Area3D" to="steel" method="_on_area_3d_input_event"]
 [connection signal="input_event" from="copper/Area3D" to="copper" method="_on_area_3d_input_event"]

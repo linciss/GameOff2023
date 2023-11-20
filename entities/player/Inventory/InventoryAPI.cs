@@ -16,7 +16,7 @@ public partial class InventoryAPI :  Node
         {
             Item item = ItemFactory.newItem(itemEnum);
 
-            GD.Print("Adding " + item.name + "through item factory!!!!!");
+            GD.Print("Adding " + item.name + " through item factory!!!!!");
 
             item.quantity = quantity;
 
@@ -30,7 +30,7 @@ public partial class InventoryAPI :  Node
         {
             inventory[itemEnum].RemoveQuantity(quantity);
 
-            if (inventory[itemEnum].quantity < 0)
+            if (inventory[itemEnum].quantity == 0)
             {
                 inventory.Remove(itemEnum);
             }
