@@ -3,52 +3,55 @@ using System;
 
 public partial class TestScript : MeshInstance3D
 {
-	// Called when the node enters the scene tree for the first time.
 
-	public void _on_area_3d_mouse_entered()
-	{
-		//GD.Print("Mouse entered");
-	}
+    private bool isHeld = false;
+    private float holdTime = 0.0f;
+    private float mineTime = 2.0f;
+
 
     public void _on_area_3d_input_event(Node camera, InputEvent @event, Vector3 position, Vector3 normal, int shape_idx)
     {
         if (@event is InputEventMouseButton mouseButtonEvent)
         {
-            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "steel")
+            if (mouseButtonEvent.ButtonIndex == MouseButton.Left)
             {
+                if (mouseButtonEvent.Pressed)
                 {
-                    InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
-                    InventoryAPI.PrintAllItems();
-                }
-            }
-            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "copper")
-            {
+                    isHeld = true;
+                }else if (mouseButtonEvent.IsReleased())
                 {
-                    InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
-                    InventoryAPI.PrintAllItems();
-                }
-            }
-            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "remove steel")
-            {
-                {
-                    InventoryAPI.RemoveItem(ItemEnum.RawSteel, 1);
-                    InventoryAPI.PrintAllItems();
+                    isHeld = false;
+                    holdTime = 0.0f;
                 }
             }
         }
-        
+
     }
 
-        
-    public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+       
 	public override void _Process(double delta)
 	{
-       
- 
+
+        if (isHeld)
+        {
+            holdTime += (float)delta;
+
+            if (holdTime >= mineTime) {
+                if (this.Name == "steel")
+                {
+                    InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+                    InventoryAPI.PrintAllItems();
+                    holdTime = 0.0f;
+                }
+                else if (this.Name == "copper")
+                {
+                    InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+                    InventoryAPI.PrintAllItems();
+                    holdTime = 0.0f;
+                }
+            }
+           
+        }
 
     }
 }
