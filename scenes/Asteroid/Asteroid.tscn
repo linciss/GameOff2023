@@ -15,17 +15,6 @@ material = SubResource("StandardMaterial3D_sjwho")
 
 [node name="Asteroid" type="Node3D"]
 
-[node name="RAWCOPPER" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.44913, 1.67219, 0)
-mesh = SubResource("CapsuleMesh_2j706")
-skeleton = NodePath("../RAWSTEEL")
-script = ExtResource("3_4vm2n")
-
-[node name="Area3D" type="Area3D" parent="RAWCOPPER"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RAWCOPPER/Area3D"]
-shape = SubResource("CapsuleShape3D_bswd7")
-
 [node name="SUN" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.395401, 0.918509, 0, -0.918509, 0.395401, 0, 13.9043, 6.69046)
 
