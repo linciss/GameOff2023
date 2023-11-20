@@ -9,6 +9,9 @@ public partial class GridHover : Node3D
     [Export]
     private StaticBody3D hoverCollider;
 
+    [Export]
+    private bool placeMode = false;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -38,8 +41,9 @@ public partial class GridHover : Node3D
             Vector3 normal = (Vector3)result["normal"];
 
             // Translates normals so can use them to place nicer
-            if (normal.IsEqualApprox(new Vector3(0,1,0))) normal = Vector3.Zero;
-            else if (normal.IsEqualApprox(new Vector3(0,0,1))) normal = new Vector3(0, 0, 0);
+            if (normal.IsEqualApprox(new Vector3(0, 1, 0)) && placeMode) normal = Vector3.Zero;
+            else if (normal.IsEqualApprox(new Vector3(0, 1, 0))) normal = new Vector3(0, -1, 0);
+            else if (normal.IsEqualApprox(new Vector3(0, 0, 1))) normal = new Vector3(0, 0, 0);
 
             //add the normal so it places side of block if aiming at the side of block
             Vector3 targetPos = (Vector3)result["position"] + normal;

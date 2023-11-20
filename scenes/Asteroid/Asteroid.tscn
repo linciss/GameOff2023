@@ -37,6 +37,7 @@ texture = ExtResource("4_h15g5")
 script = ExtResource("5_vmmlc")
 hoverNode = NodePath(".")
 hoverCollider = NodePath("HoverBlock/StaticBody3D")
+placeMode = true
 
 [node name="HoverBlock" type="MeshInstance3D" parent="GridHover"]
 mesh = SubResource("BoxMesh_cqbxo")
