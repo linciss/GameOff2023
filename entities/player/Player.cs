@@ -11,11 +11,20 @@ public partial class Player : CharacterBody3D
 
     [Export]
     private Camera3D camera;
+    [Export]
+    private MeshInstance3D mesh;
+/*    [Export]
+    private MeshInstance3D eyes;
+    [Export]
+    private MeshInstance3D backpack;*/
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public override void _Ready()
     {
+        mesh = GetNode<MeshInstance3D>("MeshInstance3D");
+/*        eyes = GetNode<MeshInstance3D>("MeshInstance3D/Eyes");
+        backpack = GetNode<MeshInstance3D>("MeshInstance3D/Backpack");*/
         //camera = GetNode<Camera3D>("Camera3D");
        
 
@@ -48,12 +57,15 @@ public partial class Player : CharacterBody3D
             input = input.Normalized() * Speed;
             velocity.X = input.X;
             velocity.Z = input.Z;
+            float angle = Mathf.Atan2(input.X, input.Z);
+            mesh.Rotation = new Vector3(0, angle, 0);
         }
         else
         {
             velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
             velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
         }
+        
 
         // Add the gravity.
         if (!IsOnFloor())
@@ -68,9 +80,10 @@ public partial class Player : CharacterBody3D
         // Handle Jump.
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
             velocity.Y = JumpVelocity;
+        
 
         Velocity = velocity;
-
+  
         MoveAndSlide();
         
     }

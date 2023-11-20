@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c55rjsd67a4bo"]
+[gd_scene load_steps=13 format=3 uid="uid://c55rjsd67a4bo"]
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_8epgl"]
@@ -6,8 +6,21 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
 height = 1.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5xage"]
-height = 1.6
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ja7qh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og8ab"]
+specular_mode = 1
+disable_ambient_light = true
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_evyky"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gdgw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_55x8n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5hkg"]
+albedo_color = Color(0.45098, 0.243137, 0.207843, 1)
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_ny50r"]
 length = 0.6
@@ -28,7 +41,19 @@ shape = SubResource("CapsuleShape3D_ntpgi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.2, 0)
-mesh = SubResource("CapsuleMesh_5xage")
+mesh = SubResource("CapsuleMesh_ja7qh")
+surface_material_override/0 = SubResource("StandardMaterial3D_og8ab")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(-1.49012e-08, -0.3, -1.31134e-08, 0, -1.31134e-08, 0.3, -0.3, 1.49012e-08, 0, -0.0260378, 0.626114, 0.42953)
+mesh = SubResource("CapsuleMesh_evyky")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_5gdgw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.5, 0, 0, 0, 0.7, 0.0498373, 0.24572, -0.384441)
+mesh = SubResource("CapsuleMesh_55x8n")
+surface_material_override/0 = SubResource("StandardMaterial3D_x5hkg")
 
 [node name="SeperationRay_x+" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.35, 0, 0.35)
