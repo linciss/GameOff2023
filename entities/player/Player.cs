@@ -14,11 +14,18 @@ public partial class Player : CharacterBody3D
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-    Dictionary<ItemEnum, Item> allItems = ItemFactory.allItems;
     public override void _Ready()
     {
         //camera = GetNode<Camera3D>("Camera3D");
+       
+
+        InventoryAPI.inventory.Add(ItemEnum.RawSteel, new Item("RawSteel", 1, ""));
+
+        // Print items to check their status
         ItemFactory.PrintAllItems();
+        GD.Print("Initiating inventory with raw steel :)");
+        InventoryAPI.PrintAllItems();
+   
     }
 
 

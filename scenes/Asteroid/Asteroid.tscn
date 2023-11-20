@@ -1,9 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=6 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
+[ext_resource type="Script" path="res://scenes/Asteroid/TestScript.cs" id="3_4vm2n"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2j706"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bswd7"]
 
 [node name="Asteroid" type="Node3D"]
+
+[node name="RAWCOPPER" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.44913, 1.67219, 0)
+mesh = SubResource("CapsuleMesh_2j706")
+skeleton = NodePath("../RAWSTEEL")
+script = ExtResource("3_4vm2n")
+
+[node name="Area3D" type="Area3D" parent="RAWCOPPER"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RAWCOPPER/Area3D"]
+shape = SubResource("CapsuleShape3D_bswd7")
 
 [node name="SUN" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.395401, 0.918509, 0, -0.918509, 0.395401, 0, 13.9043, 6.69046)
@@ -18,3 +34,18 @@ metadata/_editor_floor_ = Vector3(0, -1, 0)
 
 [node name="Player" parent="." instance=ExtResource("2_u6gbw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3311, 4, 8.62373)
+
+[node name="RAWSTEEL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78321, 0)
+mesh = SubResource("CapsuleMesh_2j706")
+script = ExtResource("3_4vm2n")
+
+[node name="Area3D" type="Area3D" parent="RAWSTEEL"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RAWSTEEL/Area3D"]
+shape = SubResource("CapsuleShape3D_bswd7")
+
+[connection signal="input_event" from="RAWCOPPER/Area3D" to="RAWCOPPER" method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="RAWCOPPER/Area3D" to="RAWCOPPER" method="_on_area_3d_mouse_entered"]
+[connection signal="input_event" from="RAWSTEEL/Area3D" to="RAWSTEEL" method="_on_area_3d_input_event"]
+[connection signal="mouse_entered" from="RAWSTEEL/Area3D" to="RAWSTEEL" method="_on_area_3d_mouse_entered"]
