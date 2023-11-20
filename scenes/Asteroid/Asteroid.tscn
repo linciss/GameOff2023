@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=15 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
 [ext_resource type="Texture2D" uid="uid://coiaudppaotap" path="res://icon.svg" id="4_h15g5"]
 [ext_resource type="Script" path="res://scenes/Asteroid/TestScript.cs" id="5_cm37f"]
 [ext_resource type="Script" path="res://scenes/Asteroid/GridHover.cs" id="5_vmmlc"]
+[ext_resource type="Texture2D" uid="uid://5plwc18vof18" path="res://scenes/assets/Environment.jpg" id="6_sgiec"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjwho"]
 albedo_color = Color(0.882353, 0.627451, 0, 1)
@@ -17,6 +18,17 @@ material = SubResource("StandardMaterial3D_sjwho")
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_qarfu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5wu6e"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bkt08"]
+panorama = ExtResource("6_sgiec")
+
+[sub_resource type="Sky" id="Sky_poqtf"]
+sky_material = SubResource("PanoramaSkyMaterial_bkt08")
+
+[sub_resource type="Environment" id="Environment_bolti"]
+background_mode = 2
+sky = SubResource("Sky_poqtf")
+sky_custom_fov = 77.7
 
 [node name="Asteroid" type="Node3D"]
 
@@ -85,6 +97,9 @@ script = ExtResource("5_cm37f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="copper/Area3D"]
 shape = SubResource("CapsuleShape3D_5wu6e")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bolti")
 
 [connection signal="input_event" from="remove steel/Area3D" to="remove steel" method="_on_area_3d_input_event"]
 [connection signal="input_event" from="steel/Area3D" to="steel" method="_on_area_3d_input_event"]
