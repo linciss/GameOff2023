@@ -1,0 +1,47 @@
+[
+	{
+	  "name": "RawSteel",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "SteelIngot",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "RawCopper",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "SteelPlate",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "CopperPlate",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "CircuitBoard",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "Forge",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "CraftingTable",
+	  "quantity": 0,
+	  "image": ""
+	},
+	{
+	  "name": "Hydrogen",
+	  "quantity": 0,
+	  "image": ""
+	}
+]
