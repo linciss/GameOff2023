@@ -9,6 +9,10 @@ public partial class GridHover : Node3D
     [Export]
     private StaticBody3D hoverCollider;
 
+
+    [Export]
+    private float mineTime = 2.0f;
+
     [Export]
     private bool placeMode = false;
 
@@ -48,7 +52,59 @@ public partial class GridHover : Node3D
             //add the normal so it places side of block if aiming at the side of block
             Vector3 targetPos = (Vector3)result["position"] + normal;
 
-            GridSystem.setPosition(targetPos, this);
+            //To register to the grid 
+            //GridSystem.setPosition(targetPos, this);
+
+            //Sets hover objects postion
+            Position = GridSystem.translateToRelativePos(targetPos);
+
+            if (GridSystem.getCell((Vector3I)targetPos) != null)
+            {
+                handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
+            }else
+            {
+                isHeld = false;
+                holdTime = 0.0f;
+            }
         }
     }
+
+
+    bool isHeld = false;
+    float holdTime = 0.0f;
+    public void handleHover(Cell cell, double delta)
+    {
+        //Detect if left click
+        if (Input.IsActionPressed("left_mouse_click") && !placeMode)
+        {
+
+            isHeld = true;
+            holdTime += (float)delta;
+
+            if (holdTime >= mineTime)
+            {
+                mineItem(cell);
+            }
+        }
+        else
+        {
+            isHeld = false;
+            holdTime = 0.0f;
+        }
+    }
+
+    public void mineItem(Cell cell)
+    {
+        if (cell.item == ItemEnum.RawSteel)
+        {
+            InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+        }
+        else if (cell.item == ItemEnum.RawCopper)
+        {
+            InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+        }
+        holdTime = 0.0f;
+        InventoryAPI.PrintAllItems();
+    }
+
 }

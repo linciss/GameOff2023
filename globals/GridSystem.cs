@@ -6,46 +6,48 @@ public partial class GridSystem : Node
     [Export]
     private Vector3 cellSize = new Vector3(1, 1, 1);
 
-    static Godot.Collections.Dictionary<Node3D, Vector3I> grid = new Godot.Collections.Dictionary<Node3D, Vector3I>();
+    static Godot.Collections.Dictionary<Vector3I, Cell> grid = new Godot.Collections.Dictionary<Vector3I, Cell>();
 
-    public static void setPosition(Vector3 newPos, Node3D node)
+    public static void setPosition(Vector3 newPos, Cell cell)
     {
-        node.Position = newPos.Floor() + new Vector3(1, 1, 1) * 0.5f;
-        if (grid.ContainsKey(node))
+        //Sets the position of the cell to the centered pos
+        cell.node.Position = translateToRelativePos(newPos);
+        
+        //Converts to grid pos for the dictionary
+        Vector3I gridPos = translateToGridPos(newPos);
+        if (grid.ContainsKey(gridPos))
         {
-            grid[node] = (Vector3I)newPos;
+            grid[gridPos] = cell;
         }
         else
         {
-            grid.Add(node, (Vector3I)newPos);
+            grid.Add(gridPos, cell);
         }
     }
 
-    public static Godot.Collections.Dictionary<Node3D, Vector3I> getGrid()
+    public static Godot.Collections.Dictionary<Vector3I, Cell> getGrid()
     {
         return grid;
     }
 
-    public static Vector3I getGridPosition(Node3D node)
+    public static Cell getCell(Vector3I pos)
     {
-        return grid[node];
+        if (grid.ContainsKey(pos)) return grid[pos];
+        else return null;
     }
 
-    public static Vector3I getGridPosition(Vector3 pos)
+    public static Vector3I getGridPosition(Cell cell)
+    {
+        return (Vector3I) cell.node.Position;
+    }
+
+    public static Vector3 translateToRelativePos(Vector3 pos)
+    {
+        return pos.Floor() + new Vector3(1, 1, 1) * 0.5f;
+    }
+    
+    public static Vector3I translateToGridPos(Vector3 pos)
     {
         return (Vector3I) pos;
-    }
-
-    public static Node3D getNodeAt(Vector3I pos)
-    {
-        foreach (Node3D node in grid.Keys)
-        {
-            if (grid[node] == pos)
-            {
-                return node;
-            }
-        }
-
-        return null;
     }
 }
