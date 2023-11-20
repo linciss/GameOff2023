@@ -15,6 +15,11 @@ run/main_scene="res://scenes/Asteroid/Asteroid.tscn"
 config/features=PackedStringArray("4.1", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+InventoryApi="*res://entities/player/Inventory/InventoryAPI.cs"
+ItemFactory="*res://entities/player/Inventory/ItemFactory.cs"
+
 [dotnet]
 
 project/assembly_name="GameOff2023"

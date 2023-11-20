@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody3D
 {
@@ -13,15 +14,17 @@ public partial class Player : CharacterBody3D
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
+    Dictionary<ItemEnum, Item> allItems = ItemFactory.allItems;
     public override void _Ready()
     {
         //camera = GetNode<Camera3D>("Camera3D");
+        ItemFactory.PrintAllItems();
     }
 
 
     public override void _PhysicsProcess(double delta)
     {
+       
         Vector3 velocity = Velocity;
 
 
