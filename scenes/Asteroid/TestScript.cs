@@ -14,14 +14,14 @@ public partial class TestScript : MeshInstance3D
     {
         if (@event is InputEventMouseButton mouseButtonEvent)
         {
-            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "RAWSTEEL")
+            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "steel")
             {
                 {
                     InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
                     InventoryAPI.PrintAllItems();
                 }
             }
-            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "RAWCOPPER")
+            if (mouseButtonEvent.Pressed && mouseButtonEvent.ButtonIndex == MouseButton.Left && this.Name == "copper")
             {
                 {
                     InventoryAPI.AddItem(ItemEnum.RawCopper, 1);

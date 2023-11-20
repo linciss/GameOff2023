@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=11 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
 [ext_resource type="Texture2D" uid="uid://coiaudppaotap" path="res://icon.svg" id="4_h15g5"]
+[ext_resource type="Script" path="res://scenes/Asteroid/TestScript.cs" id="5_cm37f"]
 [ext_resource type="Script" path="res://scenes/Asteroid/GridHover.cs" id="5_vmmlc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjwho"]
@@ -12,6 +13,10 @@ albedo_color = Color(0.882353, 0.627451, 0, 1)
 material = SubResource("StandardMaterial3D_sjwho")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_472pw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qarfu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5wu6e"]
 
 [node name="Asteroid" type="Node3D"]
 
@@ -48,3 +53,27 @@ skeleton = NodePath("../../GridMap")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GridHover/HoverBlock/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")
 disabled = true
+
+[node name="steel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.56962, 2.23901, 0)
+mesh = SubResource("CapsuleMesh_qarfu")
+skeleton = NodePath("../copper")
+script = ExtResource("5_cm37f")
+
+[node name="Area3D" type="Area3D" parent="steel"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="steel/Area3D"]
+shape = SubResource("CapsuleShape3D_5wu6e")
+
+[node name="copper" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02295, 0)
+mesh = SubResource("CapsuleMesh_qarfu")
+script = ExtResource("5_cm37f")
+
+[node name="Area3D" type="Area3D" parent="copper"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="copper/Area3D"]
+shape = SubResource("CapsuleShape3D_5wu6e")
+
+[connection signal="input_event" from="steel/Area3D" to="steel" method="_on_area_3d_input_event"]
+[connection signal="input_event" from="copper/Area3D" to="copper" method="_on_area_3d_input_event"]
