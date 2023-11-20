@@ -1,13 +1,28 @@
 [gd_scene load_steps=2 format=3 uid="uid://c275f2bi7bbt8"]
 
-[ext_resource type="Script" path="res://entities/player/SmoothFollowCamera.gd" id="1_dsmub"]
+[sub_resource type="GDScript" id="GDScript_xthi0"]
+script/source = "extends Camera3D
+#FOLLOW PLAYER
+@export_category(\"Follow this node\")
+@export var camera_point : Node3D   #THE CAMERA WILL FOLLOW THIS NODE
+@export_category(\"Wait Time\")
+@export var wait_time : float   #How long for the camera to start following the node, can leave it at 0 too
+var point_position : Vector3    #The global position of the node we want the camera to follow
+var speed := 1.0    #How fast the camera will reach its destination
+ 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	set_as_top_level(true)   #Prevents the camera from being glued to the player (won't follow on its own)
+ 
+func _process(delta):
+	transform.origin = lerp(transform.origin, camera_point.transform.origin, speed * delta)
+"
 
-[node name="Camera3D" type="Camera3D" node_paths=PackedStringArray("camera_point")]
+[node name="Camera3D" type="Camera3D"]
 transform = Transform3D(0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, -0.353553, 0.612373, -10, 10, 10)
 projection = 1
 fov = 90.0
 size = 10.0
 near = 0.001
 far = 30.0
-script = ExtResource("1_dsmub")
-camera_point = NodePath("")
+script = SubResource("GDScript_xthi0")
