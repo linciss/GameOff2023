@@ -9,6 +9,11 @@ public partial class GridHover : Node3D
     [Export]
     private StaticBody3D hoverCollider;
 
+    [Export]
+    private ProgressBar progressBar;
+    [Export]
+    private Sprite3D progressBarSprite;
+
 
     [Export]
     private float mineTime = 2.0f;
@@ -20,6 +25,7 @@ public partial class GridHover : Node3D
 	public override void _Ready()
 	{
         GD.Print(hoverCollider);
+        progressBar.MaxValue = mineTime/2;
 	}
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,6 +71,7 @@ public partial class GridHover : Node3D
             {
                 isHeld = false;
                 holdTime = 0.0f;
+                progressBar.Visible = false;
             }
         }
     }
@@ -72,14 +79,28 @@ public partial class GridHover : Node3D
 
     bool isHeld = false;
     float holdTime = 0.0f;
+    Cell lastCell = null; 
     public void handleHover(Cell cell, double delta)
     {
+        //Checks if the cell is changed
+        if (cell != lastCell)
+        {
+            holdTime = 0.0f;
+            lastCell = cell;
+        }
+        
         //Detect if left click
         if (Input.IsActionPressed("left_mouse_click") && !placeMode)
         {
 
             isHeld = true;
             holdTime += (float)delta;
+            progressBar.Value = holdTime / mineTime;
+            progressBarSprite.Position = cell.node.Position + new Vector3(2, 2.3f, 0);
+            
+            progressBar.Visible = true;
+
+            
 
             if (holdTime >= mineTime)
             {
@@ -90,19 +111,30 @@ public partial class GridHover : Node3D
         {
             isHeld = false;
             holdTime = 0.0f;
+            progressBar.Visible = false;
         }
     }
 
     public void mineItem(Cell cell)
     {
-        if (cell.item == ItemEnum.RawSteel)
+        switch (cell.item)
         {
-            InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+            case ItemEnum.RawSteel:
+                InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+                break;
+            case ItemEnum.RawCopper:
+                InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+                break;
         }
-        else if (cell.item == ItemEnum.RawCopper)
-        {
-            InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
-        }
+        
+        // if (cell.item == ItemEnum.RawSteel)
+        // {
+        //     InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+        // }
+        // else if (cell.item == ItemEnum.RawCopper)
+        // {
+        //     InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+        // }
         holdTime = 0.0f;
         InventoryAPI.PrintAllItems();
     }
