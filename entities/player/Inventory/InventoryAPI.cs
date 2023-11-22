@@ -43,7 +43,7 @@ public partial class InventoryAPI :  Node
 
     public static void PrintAllItems()
     {
-        GD.Print("INVENTORY!!!");
+        GD.Print("IThis is my inventory");
         foreach (var kvp in inventory)
         {
             GD.Print($"Name: {kvp.Value.name}, Quantity: {kvp.Value.quantity}, Image: {kvp.Value.image}");

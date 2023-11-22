@@ -13,6 +13,11 @@
 	  "name": "RawCopper",
 	  "quantity": 0,
 	  "image": ""
+	},	
+	{
+	  "name": "CopperIngot",
+	  "quantity": 0,
+	  "image": ""
 	},
 	{
 	  "name": "SteelPlate",
@@ -27,7 +32,11 @@
 	{
 	  "name": "CircuitBoard",
 	  "quantity": 0,
-	  "image": ""
+	  "image": "",
+	  "recipe" : [
+		{"item": "RawSteel", "quantity": 5 }, 
+		{"item": "RawCopper", "quantity": 5}
+	   ]
 	},
 	{
 	  "name": "Forge",
