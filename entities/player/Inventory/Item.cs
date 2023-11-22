@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
     public enum ItemEnum
     {
+        None,
         RawSteel,
         SteelIngot,
         RawCopper,
