@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=20 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://uhud87c1hrgn" path="res://scenes/assets/Materials/steel_material.tres" id="7_728cr"]
 [ext_resource type="Script" path="res://random/OreDeposit.cs" id="8_qy26n"]
 [ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="8_x6nlc"]
+[ext_resource type="Script" path="res://entities/placeable/PlaceableCell.cs" id="9_fhvif"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjwho"]
 albedo_color = Color(1, 0.862745, 0.219608, 1)
@@ -34,6 +35,12 @@ material = ExtResource("7_728cr")
 [sub_resource type="BoxMesh" id="BoxMesh_f7en6"]
 material = ExtResource("8_x6nlc")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj0jh"]
+albedo_color = Color(0.592157, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hdrak"]
+material = SubResource("StandardMaterial3D_rj0jh")
+
 [node name="Asteroid" type="Node3D"]
 
 [node name="SUN" type="DirectionalLight3D" parent="."]
@@ -55,11 +62,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.07576, -0.00112247)
 texture = ExtResource("4_h15g5")
 
 [node name="GridHover" type="Node3D" parent="." node_paths=PackedStringArray("hoverNode", "hoverCollider")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
 script = ExtResource("4_yjhyb")
 hoverNode = NodePath(".")
 hoverCollider = NodePath("HoverBlock/StaticBody3D")
 
 [node name="HoverBlock" type="MeshInstance3D" parent="GridHover"]
+transform = Transform3D(1, 0, 0, 0, 1, -0.000645772, 0, 0.000645772, 1, 0.0145698, 0, 0.0338821)
 mesh = SubResource("BoxMesh_pb8em")
 skeleton = NodePath("../../GridMap")
 
@@ -97,4 +106,14 @@ item = 2
 [node name="StaticBody3D" type="StaticBody3D" parent="MiningDeposits/Copper_1/1"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiningDeposits/Copper_1/1/StaticBody3D"]
+shape = SubResource("BoxShape3D_472pw")
+
+[node name="Test" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0.5)
+mesh = SubResource("BoxMesh_hdrak")
+script = ExtResource("9_fhvif")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Test"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")

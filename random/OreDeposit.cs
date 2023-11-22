@@ -8,12 +8,12 @@ public partial class OreDeposit : Node3D
 	public override void _Ready()
 	{	
 		GridSystem.setPosition(
-			this.Position, 
+			Position, 
 			new Cell(
-                this.Name, 
+                Name, 
                 this, 
                 item
-            )
+			)
 			);
 	}
 
