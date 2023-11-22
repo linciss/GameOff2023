@@ -13,28 +13,22 @@ public partial class Player : CharacterBody3D
     private Camera3D camera;
     [Export]
     private MeshInstance3D mesh;
-/*    [Export]
-    private MeshInstance3D eyes;
-    [Export]
-    private MeshInstance3D backpack;*/
+
 
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public override void _Ready()
     {
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-/*        eyes = GetNode<MeshInstance3D>("MeshInstance3D/Eyes");
-        backpack = GetNode<MeshInstance3D>("MeshInstance3D/Backpack");*/
-        //camera = GetNode<Camera3D>("Camera3D");
-       
+   
 
-        InventoryAPI.inventory.Add(ItemEnum.RawSteel, new Item("RawSteel", 1, ""));
+        InventoryAPI.inventory.Add(ItemEnum.RawSteel, new Item("RawSteel", 10, ""));
+        InventoryAPI.inventory.Add(ItemEnum.RawCopper, new Item("RawCopper", 10, ""));
 
         // Print items to check their status
         ItemFactory.PrintAllItems();
         GD.Print("Initiating inventory with raw steel :)");
         InventoryAPI.PrintAllItems();
-   
     }
 
 
@@ -79,7 +73,13 @@ public partial class Player : CharacterBody3D
 
         // Handle Jump.
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+        {
             velocity.Y = JumpVelocity;
+            Crafting.CheckCraftable();
+            Crafting.CraftItem(ItemEnum.CircuitBoard);
+            InventoryAPI.PrintAllItems();
+        }
+           
         
 
         Velocity = velocity;

@@ -42,6 +42,10 @@ public partial class ItemFactory : Node
         foreach (var kvp in allItems)
         {
             GD.Print($"Name: {kvp.Value.name}, Quantity: {kvp.Value.quantity}, Image: {kvp.Value.image}");
+            if (kvp.Value.recipe != null)
+            {
+                GD.Print("XD");
+            }
         }
     }
 
