@@ -14,6 +14,7 @@ public partial class GridHover : Node3D
     [Export]
     private Sprite3D progressBarSprite;
 
+    private Player player;
 
     [Export]
     private float mineTime = 2.0f;
@@ -24,6 +25,8 @@ public partial class GridHover : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        player = Player.GetPlayer();
+        GD.Print(player.name);
         GD.Print(hoverCollider);
         progressBar.MaxValue = mineTime/2;
 	}
@@ -117,10 +120,10 @@ public partial class GridHover : Node3D
         switch (cell.item)
         {
             case ItemEnum.RawSteel:
-                InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+             player.inventoryAPI.AddItem(ItemEnum.RawSteel, 1);
                 break;
             case ItemEnum.RawCopper:
-                InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+                player.inventoryAPI.AddItem(ItemEnum.RawCopper, 1);
                 break;
         }
         
@@ -133,7 +136,7 @@ public partial class GridHover : Node3D
         //     InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
         // }
         holdTime = 0.0f;
-        InventoryAPI.PrintAllItems();
+        player.inventoryAPI.PrintAllItems();
     }
 
 }

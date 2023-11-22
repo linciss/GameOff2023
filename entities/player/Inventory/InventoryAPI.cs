@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public partial class InventoryAPI :  Node
 {
-    public static Dictionary<ItemEnum, Item> inventory = new Dictionary<ItemEnum, Item>();
+    public Dictionary<ItemEnum, Item> inventory = new Dictionary<ItemEnum, Item>();
 
-    public static void AddItem(ItemEnum itemEnum, int quantity)
+    public void AddItem(ItemEnum itemEnum, int quantity)
     {
         if (inventory.ContainsKey(itemEnum))
         {
@@ -24,7 +24,7 @@ public partial class InventoryAPI :  Node
         }
     }
 
-    public static void RemoveItem(ItemEnum itemEnum, int quantity)
+    public void RemoveItem(ItemEnum itemEnum, int quantity)
     {
         if (inventory.ContainsKey(itemEnum))
         {
@@ -41,7 +41,7 @@ public partial class InventoryAPI :  Node
         }
     }
 
-    public static void PrintAllItems()
+    public void PrintAllItems()
     {
         GD.Print("IThis is my inventory");
         foreach (var kvp in inventory)
@@ -49,7 +49,4 @@ public partial class InventoryAPI :  Node
             GD.Print($"Name: {kvp.Value.name}, Quantity: {kvp.Value.quantity}, Image: {kvp.Value.image}");
         }
     }
-
-
 }
-

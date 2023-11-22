@@ -17,7 +17,7 @@ material = SubResource("StandardMaterial3D_sjwho")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_472pw"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7g1m0"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ps18s"]
 viewport_path = NodePath("GridHover/HoverBlock/MineProgressBar/SubViewport")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bkt08"]
@@ -82,7 +82,7 @@ visible = false
 [node name="ProgressbarSprite" type="Sprite3D" parent="GridHover/HoverBlock/MineProgressBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 billboard = 1
-texture = SubResource("ViewportTexture_7g1m0")
+texture = SubResource("ViewportTexture_ps18s")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bolti")
