@@ -4,5 +4,6 @@ public enum PlaceableType
 {
     Belt,
     Forge,
+    TestMachine,
     
 }

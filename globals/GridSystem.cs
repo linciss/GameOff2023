@@ -43,7 +43,7 @@ public partial class GridSystem : Node
 
     public static Vector3 translateToRelativePos(Vector3 pos)
     {
-        return pos.Floor() + new Vector3(1, 1, 1) * 0.5f;
+        return (pos.Floor() + Vector3.One * 0.5f);  
     }
     
     public static Vector3I translateToGridPos(Vector3 pos)

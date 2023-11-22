@@ -1,11 +1,9 @@
 using Godot;
 using System;
+using GameOff2023.entities.placeable.test;
 
 public partial class GridHover : Node3D
 {
-
-    [Export]
-    private Node3D hoverNode;
     [Export]
     private StaticBody3D hoverCollider;
 
@@ -20,11 +18,19 @@ public partial class GridHover : Node3D
 
     [Export]
     private bool placeMode = false;
+    
+    private static GridHover Instance { get; set; } 
+    
+    public static GridHover getInstance()
+    {
+        return Instance;
+    }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-        GD.Print(hoverCollider);
+        Instance = this;
+        
         progressBar.MaxValue = mineTime/2;
 	}
 
@@ -64,9 +70,14 @@ public partial class GridHover : Node3D
             //Sets hover objects postion
             Position = GridSystem.translateToRelativePos(targetPos);
 
+            if (placeMode)
+            {
+                handleHoverPlace(targetPos, delta);
+            }
+
             if (GridSystem.getCell((Vector3I)targetPos) != null)
             {
-                handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
+                handleHoverGround(GridSystem.getCell((Vector3I)targetPos), delta);
             }else
             {
                 isHeld = false;
@@ -80,7 +91,7 @@ public partial class GridHover : Node3D
     bool isHeld = false;
     float holdTime = 0.0f;
     Cell lastCell = null; 
-    public void handleHover(Cell cell, double delta)
+    public void handleHoverGround(Cell cell, double delta)
     {
         //Checks if the cell is changed
         if (cell != lastCell)
@@ -124,16 +135,26 @@ public partial class GridHover : Node3D
                 break;
         }
         
-        // if (cell.item == ItemEnum.RawSteel)
-        // {
-        //     InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
-        // }
-        // else if (cell.item == ItemEnum.RawCopper)
-        // {
-        //     InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
-        // }
         holdTime = 0.0f;
         InventoryAPI.PrintAllItems();
+    }
+    
+    public void handleHoverPlace(Vector3 pos, double delta)
+    {
+        if (Input.IsActionJustPressed("left_mouse_click"))
+        {
+            GridSystem.setPosition(pos, new TestMachine(GetTree()));
+        }
+    }
+    
+    public void setPlaceMode(bool placeMode)
+    {
+        this.placeMode = placeMode;
+    }
+    
+    public bool getPlaceMode()
+    {
+        return placeMode;
     }
 
 }

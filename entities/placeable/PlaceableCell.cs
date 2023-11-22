@@ -6,21 +6,13 @@ public partial class PlaceableCell : Cell
 {
     [Export]
     PlaceableType type;
-
-    public override void _Ready()
-    {
-        name = Name;
-        node = this;
-        
-        GridSystem.setPosition(
-            Position, 
-            this
-        );
-    }
     
-    public PlaceableCell(string name, Node3D node, PlaceableType type) : base(name, node, ItemEnum.None)
+    SceneTree tree;
+
+    public PlaceableCell(string name, Node3D node, PlaceableType type, SceneTree tree) : base(name, node, ItemEnum.None)
     {
         this.type = type;
+        this.tree = tree;
     }
 
     public PlaceableType getType()

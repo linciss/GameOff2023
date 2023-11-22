@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddek4s1oh6cxi"]
+
+[ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="1_0s8xm"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lg2h8"]
+material = ExtResource("1_0s8xm")
+height = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bcstd"]
+height = 1.0
+
+[node name="TestMachine" type="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_lg2h8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_bcstd")
