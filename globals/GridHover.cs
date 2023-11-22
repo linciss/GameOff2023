@@ -96,11 +96,8 @@ public partial class GridHover : Node3D
             isHeld = true;
             holdTime += (float)delta;
             progressBar.Value = holdTime / mineTime;
-            progressBarSprite.Position = cell.node.Position + new Vector3(2, 2.3f, 0);
-            
-            progressBar.Visible = true;
 
-            
+            progressBar.Visible = true;
 
             if (holdTime >= mineTime)
             {

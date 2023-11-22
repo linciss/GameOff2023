@@ -1,12 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=18 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
-[ext_resource type="Texture2D" uid="uid://coiaudppaotap" path="res://icon.svg" id="4_h15g5"]
 [ext_resource type="Script" path="res://globals/GridHover.cs" id="4_yjhyb"]
 [ext_resource type="Texture2D" uid="uid://5plwc18vof18" path="res://scenes/assets/Environment.jpg" id="6_sgiec"]
 [ext_resource type="Material" uid="uid://uhud87c1hrgn" path="res://scenes/assets/Materials/steel_material.tres" id="7_728cr"]
-[ext_resource type="PackedScene" uid="uid://d2jqwe4h2b8g5" path="res://scenes/assets/Progressbar.tscn" id="8_54qws"]
+[ext_resource type="PackedScene" uid="uid://cpip5d7s77k4n" path="res://scenes/assets/Progressbar.tscn" id="8_54qws"]
 [ext_resource type="Script" path="res://random/OreDeposit.cs" id="8_qy26n"]
 [ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="8_x6nlc"]
 
@@ -17,6 +16,9 @@ albedo_color = Color(1, 0.862745, 0.219608, 1)
 material = SubResource("StandardMaterial3D_sjwho")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_472pw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7g1m0"]
+viewport_path = NodePath("GridHover/HoverBlock/MineProgressBar/SubViewport")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_bkt08"]
 panorama = ExtResource("6_sgiec")
@@ -31,9 +33,6 @@ sky_custom_fov = 78.4
 
 [sub_resource type="BoxMesh" id="BoxMesh_44gj4"]
 material = ExtResource("7_728cr")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_7g1m0"]
-viewport_path = NodePath("MiningDeposits/Steel_1/Steel/StaticBody3D/SubViewport")
 
 [sub_resource type="BoxMesh" id="BoxMesh_f7en6"]
 material = ExtResource("8_x6nlc")
@@ -54,16 +53,12 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="Player" parent="." instance=ExtResource("2_u6gbw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73238, 4, -0.522443)
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.07576, -0.00112247)
-texture = ExtResource("4_h15g5")
-
 [node name="GridHover" type="Node3D" parent="." node_paths=PackedStringArray("hoverNode", "hoverCollider", "progressBar", "progressBarSprite")]
 script = ExtResource("4_yjhyb")
 hoverNode = NodePath(".")
 hoverCollider = NodePath("HoverBlock/StaticBody3D")
-progressBar = NodePath("../MiningDeposits/Steel_1/Steel/StaticBody3D/SubViewport/ProgressBar")
-progressBarSprite = NodePath("../MiningDeposits/Steel_1/Steel/StaticBody3D/ProgressbarSprite")
+progressBar = NodePath("HoverBlock/MineProgressBar/SubViewport/ProgressBar")
+progressBarSprite = NodePath("HoverBlock/MineProgressBar/ProgressbarSprite")
 
 [node name="HoverBlock" type="MeshInstance3D" parent="GridHover"]
 mesh = SubResource("BoxMesh_pb8em")
@@ -74,6 +69,20 @@ skeleton = NodePath("../../GridMap")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GridHover/HoverBlock/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")
 disabled = true
+
+[node name="MineProgressBar" type="Node3D" parent="GridHover/HoverBlock"]
+
+[node name="SubViewport" type="SubViewport" parent="GridHover/HoverBlock/MineProgressBar"]
+disable_3d = true
+transparent_bg = true
+
+[node name="ProgressBar" parent="GridHover/HoverBlock/MineProgressBar/SubViewport" instance=ExtResource("8_54qws")]
+visible = false
+
+[node name="ProgressbarSprite" type="Sprite3D" parent="GridHover/HoverBlock/MineProgressBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_7g1m0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bolti")
@@ -91,18 +100,6 @@ script = ExtResource("8_qy26n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiningDeposits/Steel_1/Steel/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")
-
-[node name="SubViewport" type="SubViewport" parent="MiningDeposits/Steel_1/Steel/StaticBody3D"]
-disable_3d = true
-transparent_bg = true
-
-[node name="ProgressBar" parent="MiningDeposits/Steel_1/Steel/StaticBody3D/SubViewport" instance=ExtResource("8_54qws")]
-visible = false
-
-[node name="ProgressbarSprite" type="Sprite3D" parent="MiningDeposits/Steel_1/Steel/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.683163, 0)
-billboard = 1
-texture = SubResource("ViewportTexture_7g1m0")
 
 [node name="Copper_1" type="Node3D" parent="MiningDeposits"]
 
