@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class Player : CharacterBody3D
 {
+    public static Player Instance { get; private set; }
+    
     [Export]
     private float Speed = 5.0f;
     [Export]
@@ -14,21 +16,25 @@ public partial class Player : CharacterBody3D
     [Export]
     private MeshInstance3D mesh;
 
-
+    public InventoryAPI inventoryAPI = new InventoryAPI();
+    private Crafting crafting;
+    public string name = "Kartuipelis";
+    
     // Get the gravity from the project settings to be synced with RigidBody nodes.
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public override void _Ready()
     {
+        Instance = this;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-   
-
-        InventoryAPI.inventory.Add(ItemEnum.RawSteel, new Item("RawSteel", 10, ""));
-        InventoryAPI.inventory.Add(ItemEnum.RawCopper, new Item("RawCopper", 10, ""));
+        inventoryAPI.AddItem(ItemEnum.RawSteel, 10);
+        inventoryAPI.AddItem(ItemEnum.RawCopper, 10);
+        crafting = new Crafting(Instance);
+    
 
         // Print items to check their status
         ItemFactory.PrintAllItems();
         GD.Print("Initiating inventory with raw steel :)");
-        InventoryAPI.PrintAllItems();
+        inventoryAPI.PrintAllItems();
     }
 
 
@@ -75,16 +81,19 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
         {
             velocity.Y = JumpVelocity;
-            Crafting.CheckCraftable();
-            Crafting.CraftItem(ItemEnum.CircuitBoard);
-            InventoryAPI.PrintAllItems();
+            crafting.CheckCraftable();
+            crafting.CraftItem(ItemEnum.CircuitBoard);
+            inventoryAPI.PrintAllItems();
         }
            
         
 
         Velocity = velocity;
-  
         MoveAndSlide();
         
+    }
+    public static Player GetPlayer()
+    {
+        return Instance;
     }
 }

@@ -14,23 +14,23 @@ public partial class GridHover : Node3D
 
 
     [Export]
-    private float mineTime = 2.0f;
+    private float mineTime = 1.0f;
 
     [Export]
     private bool placeMode = false;
-    
-    private static GridHover Instance { get; set; } 
-    
+
+    Player player;
+    private static GridHover Instance { get; set; }  
     public static GridHover getInstance()
     {
         return Instance;
     }
-
+    
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
         Instance = this;
-        
+        player = Player.GetPlayer();
         progressBar.MaxValue = mineTime/2;
 	}
 
@@ -73,11 +73,9 @@ public partial class GridHover : Node3D
             if (placeMode)
             {
                 handleHoverPlace(targetPos, delta);
-            }
-
-            if (GridSystem.getCell((Vector3I)targetPos) != null)
+            }else if (GridSystem.getCell((Vector3I)targetPos) != null)
             {
-                handleHoverGround(GridSystem.getCell((Vector3I)targetPos), delta);
+                handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
             }else
             {
                 isHeld = false;
@@ -91,7 +89,7 @@ public partial class GridHover : Node3D
     bool isHeld = false;
     float holdTime = 0.0f;
     Cell lastCell = null; 
-    public void handleHoverGround(Cell cell, double delta)
+    public void handleHover(Cell cell, double delta)
     {
         //Checks if the cell is changed
         if (cell != lastCell)
@@ -128,17 +126,17 @@ public partial class GridHover : Node3D
         switch (cell.item)
         {
             case ItemEnum.RawSteel:
-                InventoryAPI.AddItem(ItemEnum.RawSteel, 1);
+                player.inventoryAPI.AddItem(ItemEnum.RawSteel, 1);
                 break;
             case ItemEnum.RawCopper:
-                InventoryAPI.AddItem(ItemEnum.RawCopper, 1);
+                player.inventoryAPI.AddItem(ItemEnum.RawCopper, 1);
                 break;
         }
         
         holdTime = 0.0f;
-        InventoryAPI.PrintAllItems();
+        player.inventoryAPI.PrintAllItems();
     }
-    
+
     public void handleHoverPlace(Vector3 pos, double delta)
     {
         if (Input.IsActionJustPressed("left_mouse_click"))
@@ -156,5 +154,4 @@ public partial class GridHover : Node3D
     {
         return placeMode;
     }
-
 }
