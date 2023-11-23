@@ -35,7 +35,6 @@ public partial class Crafting : Node
     {
 	    foreach (var item in allCraftables)
 	    {
-
 		    foreach (var recipe in item.Value.recipe)
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnum);
@@ -50,6 +49,10 @@ public partial class Crafting : Node
 				    craftableAvailable = false;
 				    break;
 			    }
+			    else
+			    {
+				    craftableAvailable = true;
+			    }
 		    }
 		    if (craftableAvailable)
 			    availableCraftables[item.Key] = item.Value;
@@ -62,6 +65,7 @@ public partial class Crafting : Node
     {
 	    if (craftableAvailable)
 	    {
+		    GD.Print("CRAFTABLE");
 		    foreach (var recipe in availableCraftables[itemEnum].recipe)
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnumRecipe);
