@@ -2,7 +2,7 @@
 	{
 	  "name": "RawSteel",
 	  "quantity": 0,
-	  "image": ""
+	  "image": "res://ui/HUD/Assets/RawSteel.png"
 	},
 	{
 	  "name": "SteelIngot",
@@ -12,7 +12,7 @@
 	{
 	  "name": "RawCopper",
 	  "quantity": 0,
-	  "image": ""
+	  "image": "res://ui/HUD/Assets/RawCopper.png"
 	},	
 	{
 	  "name": "CopperIngot",
@@ -32,7 +32,7 @@
 	{
 	  "name": "CircuitBoard",
 	  "quantity": 0,
-	  "image": "",
+	  "image": "res://ui/HUD/Assets/CircuitBoard.png",
 	  "recipe" : [
 		{"item": "RawSteel", "quantity": 5 }, 
 		{"item": "RawCopper", "quantity": 5}

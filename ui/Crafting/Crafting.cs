@@ -10,6 +10,11 @@ public partial class Crafting : Node
     public static Dictionary<ItemEnum, Item> availableCraftables = new Dictionary<ItemEnum, Item>();
     private Player player;
     
+     public override void _Ready()
+     {
+	     
+	     GD.Print("Crafting ready");
+	 }	
     //for now like this because this shit doesnt have a scene
     public  Crafting(Player playerInstance)
     {
@@ -72,6 +77,7 @@ public partial class Crafting : Node
 			    player.inventoryAPI.RemoveItem(itemEnumRecipe, recipe.quantity);
 		    }
 		    player.inventoryAPI.AddItem(itemEnum, 1);
+		    
 	    }else
 		    GD.Print($"Not enough resources to craft {itemEnum}");
     }

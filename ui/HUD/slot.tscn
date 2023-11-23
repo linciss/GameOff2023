@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh5tcbot28823"]
+
+[ext_resource type="Script" path="res://ui/HUD/Slot.cs" id="1_mns3f"]
+
+[node name="Slot" type="Panel" node_paths=PackedStringArray("sprite", "label")]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_mns3f")
+sprite = NodePath("CenterContainer/Panel/Sprite2D")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -16.0
+offset_right = 4.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.77, 0.7)
+text = "20"
+horizontal_alignment = 2
+vertical_alignment = 2
+clip_text = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2.50993, 2.46108)
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CenterContainer/Panel"]
+position = Vector2(-10, -10)
+scale = Vector2(0.331835, 0.61956)

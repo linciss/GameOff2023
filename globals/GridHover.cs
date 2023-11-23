@@ -31,7 +31,7 @@ public partial class GridHover : Node3D
 	{
         Instance = this;
         player = Player.GetPlayer();
-        progressBar.MaxValue = mineTime/2;
+        progressBar.MaxValue = mineTime;
 	}
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

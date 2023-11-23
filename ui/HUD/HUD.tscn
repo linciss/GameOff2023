@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkfhyh0b61fpq"]
+
+[ext_resource type="Texture2D" uid="uid://dl60e322yv86p" path="res://ui/HUD/Assets/RawSteel.png" id="2_i6we7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1029.0
+offset_top = 547.0
+offset_right = 1151.0
+offset_bottom = 587.0
+color = Color(0.247059, 1, 1, 0.188235)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 1.0
+offset_right = 123.0
+offset_bottom = 39.0
+texture = ExtResource("2_i6we7")
+expand_mode = 2
