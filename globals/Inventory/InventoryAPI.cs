@@ -17,7 +17,7 @@ public partial class InventoryAPI : Node, IInventory
         this.maxSlots = maxSlots;
     }
     
-    public void AddItem(ItemEnum itemEnum, int quantity)
+    public void AddItem(ItemEnum itemEnum, int quantity) //TODO check if item is full if so add to next slot
     {
         if (inventory.ContainsKey(itemEnum))
         {
@@ -68,6 +68,17 @@ public partial class InventoryAPI : Node, IInventory
         }
 
         return true;
+    }
+    
+    public Item TakeFirstItem()
+    {
+        Item item = null;
+        foreach (var kvp in inventory)
+        {
+            item = kvp.Value;
+            break;
+        }
+        return item;
     }
 
     public Dictionary<ItemEnum, Item> GetInventory()

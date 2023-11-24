@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using GameOff2023.entities.cell_items;
+using GameOff2023.entities.chest;
 using GameOff2023.entities.placeable;
 public partial class GridHover : Node3D
 {
@@ -140,7 +141,13 @@ public partial class GridHover : Node3D
     {
         if (Input.IsActionJustPressed("left_mouse_click"))
         {
-            
+            GridSystem.setPosition(
+                pos, 
+            new ChestMachine(
+                    GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                    GetTree()
+                )
+                );
         }
     }
     

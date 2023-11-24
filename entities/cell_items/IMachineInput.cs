@@ -2,7 +2,7 @@
 
 public interface IMachineInput
 {
-    public bool canInput(Item item);
+    public bool canInput(Item item, ICellItem cellItem);
     
     public void input(Item item);
 }
