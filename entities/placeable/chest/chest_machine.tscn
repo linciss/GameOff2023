@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctejrs078uxdj"]
+
+[ext_resource type="PackedScene" uid="uid://c82y813uqwtdv" path="res://entities/placeable/chest/chest.glb" id="1_l6ew1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82v3m"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="chest" parent="." instance=ExtResource("1_l6ew1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="chest"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="chest/StaticBody3D"]
+shape = SubResource("BoxShape3D_82v3m")

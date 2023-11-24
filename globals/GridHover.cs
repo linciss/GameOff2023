@@ -63,10 +63,7 @@ public partial class GridHover : Node3D
 
             //add the normal so it places side of block if aiming at the side of block
             Vector3 targetPos = (Vector3)result["position"] + normal;
-
-            //To register to the grid 
-            //GridSystem.setPosition(targetPos, this);
-
+            
             //Sets hover objects postion
             Position = GridSystem.translateToRelativePos(targetPos);
 
@@ -141,7 +138,7 @@ public partial class GridHover : Node3D
     {
         if (Input.IsActionJustPressed("left_mouse_click"))
         {
-            GridSystem.setPosition(pos, new TestMachine(GetTree()));
+            GridSystem.setPosition(pos, new BeltMachine(GetTree()));
         }
     }
     
