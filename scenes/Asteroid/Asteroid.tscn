@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgeoph15r1jy7"]
+[gd_scene load_steps=22 format=3 uid="uid://dgeoph15r1jy7"]
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="Script" path="res://globals/Hotbar.cs" id="1_ak2my"]
@@ -9,12 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://cpip5d7s77k4n" path="res://scenes/assets/Progressbar.tscn" id="8_54qws"]
 [ext_resource type="Script" path="res://random/OreDeposit.cs" id="8_qy26n"]
 [ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="8_x6nlc"]
+[ext_resource type="PackedScene" uid="uid://ddek4s1oh6cxi" path="res://entities/placeable/test/test_machine.tscn" id="10_ahhig"]
+[ext_resource type="PackedScene" uid="uid://bkfhyh0b61fpq" path="res://ui/HUD/HUD.tscn" id="11_vk47x"]
+[ext_resource type="PackedScene" uid="uid://bbvfqinylqfl1" path="res://ui/HUD/inv_ui.tscn" id="12_4uhrx"]
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u1lbj"]
-transparency = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjwho"]
+albedo_color = Color(1, 0.862745, 0.219608, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pb8em"]
-material = SubResource("ORMMaterial3D_u1lbj")
+material = SubResource("StandardMaterial3D_sjwho")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_472pw"]
 
@@ -74,8 +77,9 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Player" parent="." instance=ExtResource("2_u6gbw")]
+[node name="Player" parent="." node_paths=PackedStringArray("invUi") instance=ExtResource("2_u6gbw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73238, 4, -0.522443)
+invUi = NodePath("../CanvasLayer/InvUI")
 
 [node name="GridHover" type="Node3D" parent="." node_paths=PackedStringArray("hoverCollider", "progressBar", "progressBarSprite")]
 script = ExtResource("4_yjhyb")
@@ -139,3 +143,17 @@ item = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiningDeposits/Copper_1/Copper/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")
+
+[node name="MachinePrefabs" type="Node3D" parent="."]
+visible = false
+
+[node name="TestMachine" parent="MachinePrefabs" instance=ExtResource("10_ahhig")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InvUI" parent="CanvasLayer" instance=ExtResource("12_4uhrx")]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("11_vk47x")]
+visible = false
+offset_left = 2.0
+offset_right = 2.0
