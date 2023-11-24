@@ -5,7 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="entities\cell_items\placeable\belt\" />
-    <Folder Include="entities\cell_items\placeable\chest\" />
     <Folder Include="entities\cell_items\placeable\test\" />
   </ItemGroup>
 </Project>

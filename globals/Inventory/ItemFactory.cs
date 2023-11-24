@@ -37,6 +37,12 @@ public partial class ItemFactory : Node
             }
         }
     }
+
+    public static int GetItemMaxStackSize(ItemEnum itemEnum)
+    {
+        return allItems[itemEnum].maxQuantity;
+    }
+    
     public static void PrintAllItems()
     {
         foreach (var kvp in allItems)

@@ -4,61 +4,71 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
-    public enum ItemEnum
+public enum ItemEnum
+{
+    None,
+    RawSteel,
+    SteelIngot,
+    RawCopper,
+    CopperIngot,
+    SteelPlate,
+    CopperPlate,
+    CircuitBoard,
+    Forge,
+    CraftingTable,
+    Hydrogen
+}
+
+public class Item
+{
+    public string name;
+
+    public ItemEnum type;
+    public int quantity;
+    public string image;
+
+    public List<Recipe> recipe;
+    
+    public int maxQuantity;
+
+    public Item(string name, int quantity, int maxQuantity, string image)
     {
-        None,
-        RawSteel,
-        SteelIngot,
-        RawCopper,
-        CopperIngot,
-        SteelPlate,
-        CopperPlate,
-        CircuitBoard,
-        Forge,
-        CraftingTable,
-        Hydrogen
+        this.name = name;
+        this.type = (ItemEnum) Enum.Parse(typeof(ItemEnum), name);;
+        this.quantity = quantity;
+        this.maxQuantity = maxQuantity;
+        this.image = image;
     }
 
-    public class Item
-    {
-        public string name { get; set; }
-        public int quantity { get; set; }
-        public string image { get; set; }
-        
-        public List<Recipe> recipe { get; set; }
-        
-        
-        public int maxQuantity = 200;
-
-        public Item(string name, int quantity, string image)
-        {
-            this.name = name;
-            this.quantity = quantity;
-            this.image = image;
-        }
-
-    public void AddQuantity(int amount)
+    public bool AddQuantity(int amount)
     {
         if (quantity + amount > maxQuantity)
         {
             quantity = maxQuantity;
+            return false;
         }
-        else
-        {
-            quantity += amount;
-        }
+        quantity += amount;
+        return true;
     }
 
-    public void RemoveQuantity(int amount)
+    public bool RemoveQuantity(int amount)
     {
-   
-         quantity -= amount;
-        
+        if (quantity - amount < 0)
+        {
+            return false;
+        }
+        quantity -= amount;
+        return true;
+    }
+    
+    public ItemEnum GetType()
+    {
+        return type;
     }
     
     public Item Clone()
     {
-        return new Item(name, quantity, image);
+        return new Item(name, quantity, maxQuantity, image);
     }
 
 }
