@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctejrs078uxdj"]
+[gd_scene load_steps=3 format=3 uid="uid://lj6rk55xtq33"]
 
-[ext_resource type="PackedScene" uid="uid://c82y813uqwtdv" path="res://entities/placeable/chest/chest.glb" id="1_l6ew1"]
+[ext_resource type="PackedScene" uid="uid://c82y813uqwtdv" path="res://entities/cell_items/placeable/chest/chest.glb" id="1_l6ew1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_82v3m"]
 

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using GameOff2023.entities.cell_items;
+using GameOff2023.entities.chest;
 using GameOff2023.entities.placeable;
 public partial class GridHover : Node3D
 {
@@ -60,11 +61,12 @@ public partial class GridHover : Node3D
 
             // Translates normals so can use them to place nicer
             if (normal.IsEqualApprox(new Vector3(0, 1, 0)) && placeMode) normal = Vector3.Zero;
-            else if (normal.IsEqualApprox(new Vector3(0, 1, 0))) normal = new Vector3(0, -1, 0);
-            else if (normal.IsEqualApprox(new Vector3(0, 0, 1))) normal = new Vector3(0, 0, 0);
+            else if (normal.Equals(new Vector3(-1, 0, 0))) normal = Vector3.Zero;
+            // else if (normal.IsEqualApprox(new Vector3(0, 1, 0))) normal = new Vector3(0, -1, 0);
+            // else if (normal.IsEqualApprox(new Vector3(0, 0, 1))) normal = new Vector3(0, 0, 0);
 
             //add the normal so it places side of block if aiming at the side of block
-            Vector3 targetPos = (Vector3)result["position"] + normal;
+            Vector3 targetPos = (Vector3)result["position"] - normal;
             
             //Sets hover objects postion
             Position = GridSystem.translateToRelativePos(targetPos);
@@ -139,8 +141,18 @@ public partial class GridHover : Node3D
     public void handleHoverPlace(Vector3 pos, double delta)
     {
         if (Input.IsActionJustPressed("left_mouse_click"))
+        {// TODO check if isint filled
+            GridSystem.setPosition(
+                pos, 
+            new ChestMachine(
+                    GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                    GetTree()
+                )
+                );
+        }else if (Input.IsActionJustPressed("right_mouse_click"))
         {
-            
+           //TODO interact
+           
         }
     }
     
