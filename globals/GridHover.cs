@@ -20,6 +20,7 @@ public partial class GridHover : Node3D
     private bool placeMode = false;
 
     Player player;
+    inv_ui invUI;
     private static GridHover Instance { get; set; }  
     public static GridHover getInstance()
     {
@@ -32,7 +33,8 @@ public partial class GridHover : Node3D
         Instance = this;
         player = Player.GetPlayer();
         progressBar.MaxValue = mineTime;
-	}
+        invUI = GetNode<inv_ui>("/root/Asteroid/CanvasLayer/InvUI");
+    }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
 

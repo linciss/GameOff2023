@@ -77,7 +77,6 @@ public partial class Crafting : Node
 			    player.inventoryAPI.RemoveItem(itemEnumRecipe, recipe.quantity);
 		    }
 		    player.inventoryAPI.AddItem(itemEnum, 1);
-		    
 	    }else
 		    GD.Print($"Not enough resources to craft {itemEnum}");
     }

@@ -19,7 +19,7 @@ public partial class ItemFactory : Node
 
     public static void InitializeItems()
     {
-        string jsonFilePath = "res://entities/player/Inventory/ItemJson.json";
+        string jsonFilePath = "res://globals/Inventory/ItemJson.json";
  
         string jsonContent = FileAccess.GetFileAsString(jsonFilePath);
 

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cpip5d7s77k4n" path="res://scenes/assets/Progressbar.tscn" id="8_54qws"]
 [ext_resource type="Script" path="res://random/OreDeposit.cs" id="8_qy26n"]
 [ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="8_x6nlc"]
-[ext_resource type="PackedScene" uid="uid://ddek4s1oh6cxi" path="res://entities/placeable/test/test_machine.tscn" id="10_ahhig"]
+[ext_resource type="PackedScene" uid="uid://ddek4s1oh6cxi" path="res://entities/cell_items/placeable/test/test_machine.tscn" id="10_ahhig"]
 [ext_resource type="PackedScene" uid="uid://bkfhyh0b61fpq" path="res://ui/HUD/HUD.tscn" id="11_vk47x"]
 [ext_resource type="PackedScene" uid="uid://bbvfqinylqfl1" path="res://ui/HUD/inv_ui.tscn" id="12_4uhrx"]
 
@@ -42,6 +42,19 @@ material = ExtResource("7_728cr")
 material = ExtResource("8_x6nlc")
 
 [node name="Asteroid" type="Node3D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InvUI" parent="CanvasLayer" instance=ExtResource("12_4uhrx")]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("11_vk47x")]
+visible = false
+offset_left = 2.0
+offset_right = 2.0
+
+[node name="Player" parent="." node_paths=PackedStringArray("invUi") instance=ExtResource("2_u6gbw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73238, 4, -0.522443)
+invUi = NodePath("../CanvasLayer/InvUI")
 
 [node name="Hotbar" type="HBoxContainer" parent="."]
 anchors_preset = 7
@@ -76,10 +89,6 @@ data = {
 "cells": PackedInt32Array(-10, 65531, 0, -10, 65532, 0, -10, 65533, 0, -10, 65534, 0, -10, 65535, 0, -10, 0, 0, -10, 1, 0, -9, 65530, 0, -9, 65531, 0, -9, 65532, 0, -9, 65533, 0, -9, 65534, 0, -9, 65535, 0, -9, 0, 0, -9, 1, 0, -9, 2, 0, -8, 65529, 0, -8, 65530, 0, -8, 65531, 0, -8, 65532, 0, -8, 65533, 0, -8, 65534, 0, -8, 65535, 0, -8, 0, 0, -8, 1, 0, -8, 2, 0, -7, 65528, 0, -7, 65529, 0, -7, 65530, 0, -7, 65531, 0, -7, 65532, 0, -7, 65533, 0, -7, 65534, 0, -7, 65535, 0, -7, 0, 0, -7, 1, 0, -7, 2, 0, -6, 65528, 0, -6, 65529, 0, -6, 65530, 0, -6, 65531, 0, -6, 65532, 0, -6, 65533, 0, -6, 65534, 0, -6, 65535, 0, -6, 0, 0, -6, 1, 0, -6, 2, 0, -5, 65528, 0, -5, 65529, 0, -5, 65530, 0, -5, 65531, 0, -5, 65532, 0, -5, 65533, 0, -5, 65534, 0, -5, 65535, 0, -5, 0, 0, -5, 1, 0, -4, 65528, 0, -4, 65529, 0, -4, 65530, 0, -4, 65531, 0, -4, 65532, 0, -4, 65533, 0, -4, 65534, 0, -4, 65535, 0, -4, 0, 0, -4, 1, 0, -3, 65528, 0, -3, 65529, 0, -3, 65530, 0, -3, 65531, 0, -3, 65532, 0, -3, 65533, 0, -3, 65534, 0, -3, 65535, 0, -3, 0, 0, -3, 1, 0, -2, 65529, 0, -2, 65531, 0, -2, 65532, 0, -2, 65533, 0, 65530, 2, 524288, 65530, 1, 524288, 65530, 0, 524288, 65530, 65535, 524288, 65531, 65535, 524288, 65531, 0, 524288, 65531, 1, 524288, 65532, 1, 524288, 65532, 0, 524288, 65533, 1, 524288, 65533, 0, 524288, 65533, 65535, 524288, 65532, 65535, 524288, 65530, 65534, 524288, 65529, 65534, 524288, 65529, 65535, 524288, 65528, 65535, 524288, 65528, 0, 524288, 65528, 1, 524288, 65529, 1, 524288, 65529, 0, 524288, 65529, 2, 524288, 65528, 2, 524288, 65528, 65534, 524288, 65528, 65533, 524288, 65527, 65534, 524288, 65527, 65535, 524288, 65527, 0, 524288, 65527, 1, 524288, 65527, 65533, 524288, 65526, 65534, 524288, 65526, 65535, 524288, 65530, 65533, 524288, 65530, 65532, 524288, 65529, 65532, 524288, 65529, 65533, 524288, 65531, 65531, 524288, 65530, 65530, 524288, 65529, 65530, 524288, 65529, 65531, 524288, 65531, 65532, 524288, 65532, 65531, 524288, 65531, 65530, 524288, 65530, 65531, 524288, 65533, 65531, 524288, 65533, 65532, 524288, 65532, 65533, 524288, 65532, 65534, 524288, 65533, 65534, 524288, 65533, 65533, 524288, 65531, 65534, 524288, 65532, 65532, 524288, 65531, 65533, 524288, 1, 65534, 786432, 1, 65533, 786432, 1, 65532, 786432, 2, 65534, 786432, 2, 65533, 786432, 3, 65533, 786432, 3, 65532, 786432, 2, 65532, 786432, 3, 65534, 786432, 1, 1, 786432, 1, 2, 786432, 1, 3, 786432, 2, 3, 786432, 2, 2, 786432, 3, 2, 786432, 3, 1, 786432, 2, 1, 786432, 3, 3, 786432, 65534, 1, 786432, 65534, 2, 786432, 65534, 3, 786432, 65533, 3, 786432, 65533, 2, 786432, 65532, 3, 786432, 65531, 3, 786432, 65533, 65529, 786432, 65533, 65528, 786432, 65532, 65529, 786432, 65533, 65530, 786432, 65534, 65529, 786432, 65534, 65528, 786432, 65532, 65530, 786432)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="Player" parent="." node_paths=PackedStringArray("invUi") instance=ExtResource("2_u6gbw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73238, 4, -0.522443)
-invUi = NodePath("../CanvasLayer/InvUI")
 
 [node name="GridHover" type="Node3D" parent="." node_paths=PackedStringArray("hoverCollider", "progressBar", "progressBarSprite")]
 script = ExtResource("4_yjhyb")
@@ -148,12 +157,3 @@ shape = SubResource("BoxShape3D_472pw")
 visible = false
 
 [node name="TestMachine" parent="MachinePrefabs" instance=ExtResource("10_ahhig")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="InvUI" parent="CanvasLayer" instance=ExtResource("12_4uhrx")]
-
-[node name="Control" parent="CanvasLayer" instance=ExtResource("11_vk47x")]
-visible = false
-offset_left = 2.0
-offset_right = 2.0

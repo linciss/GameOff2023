@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-InventoryApi="*res://entities/player/Inventory/InventoryAPI.cs"
-ItemFactory="*res://entities/player/Inventory/ItemFactory.cs"
+InventoryApi="*res://globals/Inventory/InventoryAPI.cs"
+ItemFactory="*res://globals/Inventory/ItemFactory.cs"
 
 [dotnet]
 
