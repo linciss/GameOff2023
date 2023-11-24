@@ -1,3 +1,5 @@
+using GameOff2023.entities;
+using GameOff2023.entities.placeable;
 using Godot;
 
 
@@ -8,21 +10,14 @@ public partial class GridSystem : Node
 
     static Godot.Collections.Dictionary<Vector3I, Cell> grid = new Godot.Collections.Dictionary<Vector3I, Cell>();
 
-    public static void setPosition(Vector3 newPos, Cell cell)
+    public static void setPosition(Vector3 newPos, ICellItem cellItem)
     {
-        //Sets the position of the cell to the centered pos
-        cell.node.Position = translateToRelativePos(newPos);
+        //Gets cell at the new position if doesnt exist makes it automatically
+        Cell targetCell = getCell(translateToGridPos(newPos));
+        //Sets the position of the cell's node to the centered pos
+        cellItem.getNode().Position = translateToRelativePos(newPos);
         
-        //Converts to grid pos for the dictionary
-        Vector3I gridPos = translateToGridPos(newPos);
-        if (grid.ContainsKey(gridPos))
-        {
-            grid[gridPos] = cell;
-        }
-        else
-        {
-            grid.Add(gridPos, cell);
-        }
+        targetCell.setCellItem(cellItem);
     }
 
     public static Godot.Collections.Dictionary<Vector3I, Cell> getGrid()
@@ -32,13 +27,14 @@ public partial class GridSystem : Node
 
     public static Cell getCell(Vector3I pos)
     {
-        if (grid.ContainsKey(pos)) return grid[pos];
-        else return null;
-    }
-
-    public static Vector3I getGridPosition(Cell cell)
-    {
-        return (Vector3I) cell.node.Position;
+        Cell cell;
+        if (grid.TryGetValue(pos, out cell))
+        {
+            return cell;
+        }
+        cell = new Cell(pos);
+        grid.Add(pos, cell);
+        return cell;
     }
 
     public static Vector3 translateToRelativePos(Vector3 pos)

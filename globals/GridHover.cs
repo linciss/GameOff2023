@@ -1,7 +1,7 @@
 using Godot;
 using System;
-using GameOff2023.entities.placeable.test;
-
+using GameOff2023.entities.cell_items;
+using GameOff2023.entities.placeable;
 public partial class GridHover : Node3D
 {
     [Export]
@@ -70,7 +70,7 @@ public partial class GridHover : Node3D
             if (placeMode)
             {
                 handleHoverPlace(targetPos, delta);
-            }else if (GridSystem.getCell((Vector3I)targetPos) != null)
+            }else if (GridSystem.getCell((Vector3I)targetPos).hasCellItem())
             {
                 handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
             }else
@@ -120,15 +120,15 @@ public partial class GridHover : Node3D
 
     public void mineItem(Cell cell)
     {
-        switch (cell.item)
-        {
-            case ItemEnum.RawSteel:
-                player.inventoryAPI.AddItem(ItemEnum.RawSteel, 1);
-                break;
-            case ItemEnum.RawCopper:
-                player.inventoryAPI.AddItem(ItemEnum.RawCopper, 1);
-                break;
-        }
+        //Get placeable item from cell
+        ICellItem item = cell.getCellItem();
+        
+        //If not Ore then idi nahuj
+        if (!(item is IOre)) return;
+
+        //If scoobi doobi do is Ore
+        IOre ore = (IOre)item;
+        player.inventoryAPI.AddItem(ore.getOreType(), 1);
         
         holdTime = 0.0f;
         player.inventoryAPI.PrintAllItems();
@@ -138,7 +138,7 @@ public partial class GridHover : Node3D
     {
         if (Input.IsActionJustPressed("left_mouse_click"))
         {
-            GridSystem.setPosition(pos, new BeltMachine(GetTree()));
+            
         }
     }
     
