@@ -1,25 +1,50 @@
 using Godot;
 using System;
+using GameOff2023.entities;
+using GameOff2023.entities.placeable;
 
 public partial class Cell : Node3D
 {
-    [Export]
-    public string name;
 
-    public Node3D node;
+    private ICellItem cellItem;
+    private Vector3I position;
 
-    public ItemEnum item;
-
-    public Cell(){}
-    public Cell(string name, Node3D node, ItemEnum item)
+    public Cell(Vector3I position)
     {
-        this.name = name;
-        this.node = node;
-        this.item = item;
+        this.position = position;
+    }
+    public Cell(ICellItem cellItem, Vector3I position)
+    {
+        this.position = position;
+        this.cellItem = cellItem;
     }
     
-    override public string ToString()
+    public bool hasCellItem()
     {
-        return name + " " + node + " " + item;
+        return cellItem != null;
     }
+
+    // Getters and Setters
+    public ICellItem getCellItem()
+    {
+        return cellItem;
+    }
+    
+    public Vector3I getPosition()
+    {
+        return position;
+    }
+    
+    public void setCellItem(ICellItem placeable)
+    {
+        this.cellItem = placeable;
+    }
+    
+    public void setPosition(Vector3I position)
+    {
+        this.position = position;
+    }
+    
+    
+    
 }
