@@ -21,15 +21,12 @@ public enum ItemEnum
 
 public class Item
 {
-    public string name;
-
-    public ItemEnum type;
-    public int quantity;
-    public string image;
-
-    public List<Recipe> recipe;
-    
-    public int maxQuantity;
+    public string name { get; set; }
+    public ItemEnum type { get; set; }
+    public int quantity { get; set; }
+    public string image { get; set; }
+    public List<Recipe> recipe { get; set; }
+    public int maxQuantity { get; set; }
 
     public Item(string name, int quantity, int maxQuantity, string image)
     {
@@ -53,7 +50,7 @@ public class Item
 
     public bool RemoveQuantity(int amount)
     {
-        if (quantity - amount < 0)
+        if (quantity - amount <= 0)
         {
             return false;
         }

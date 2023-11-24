@@ -2,36 +2,43 @@
 	{
 	  "name": "RawSteel",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": "res://ui/HUD/Assets/RawSteel.png"
 	},
 	{
 	  "name": "SteelIngot",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "RawCopper",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": "res://ui/HUD/Assets/RawCopper.png"
 	},	
 	{
 	  "name": "CopperIngot",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "SteelPlate",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "CopperPlate",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "CircuitBoard",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": "res://ui/HUD/Assets/CircuitBoard.png",
 	  "recipe" : [
 		{"item": "RawSteel", "quantity": 5 }, 
@@ -41,16 +48,19 @@
 	{
 	  "name": "Forge",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "CraftingTable",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	},
 	{
 	  "name": "Hydrogen",
 	  "quantity": 0,
+	  "maxQuantity": 200,
 	  "image": ""
 	}
 ]
