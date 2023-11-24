@@ -10,6 +10,11 @@ public partial class Crafting : Node
     public static Dictionary<ItemEnum, Item> availableCraftables = new Dictionary<ItemEnum, Item>();
     private Player player;
     
+     public override void _Ready()
+     {
+	     
+	     GD.Print("Crafting ready");
+	 }	
     //for now like this because this shit doesnt have a scene
     public  Crafting(Player playerInstance)
     {
@@ -35,7 +40,6 @@ public partial class Crafting : Node
     {
 	    foreach (var item in allCraftables)
 	    {
-
 		    foreach (var recipe in item.Value.recipe)
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnum);
@@ -50,6 +54,10 @@ public partial class Crafting : Node
 				    craftableAvailable = false;
 				    break;
 			    }
+			    else
+			    {
+				    craftableAvailable = true;
+			    }
 		    }
 		    if (craftableAvailable)
 			    availableCraftables[item.Key] = item.Value;
@@ -62,12 +70,14 @@ public partial class Crafting : Node
     {
 	    if (craftableAvailable)
 	    {
+		    GD.Print("CRAFTABLE");
 		    foreach (var recipe in availableCraftables[itemEnum].recipe)
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnumRecipe);
 			    player.inventoryAPI.RemoveItem(itemEnumRecipe, recipe.quantity);
 		    }
 		    player.inventoryAPI.AddItem(itemEnum, 1);
+		    
 	    }else
 		    GD.Print($"Not enough resources to craft {itemEnum}");
     }
