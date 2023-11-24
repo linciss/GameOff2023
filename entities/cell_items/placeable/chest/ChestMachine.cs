@@ -16,9 +16,9 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
         this.cell = cell;
         inventory = new InventoryAPI();
         
-        PackedScene prefab = (PackedScene)ResourceLoader.Load("res://entities/placeable/chest/chest_machine.tscn");
+        PackedScene prefab = (PackedScene)ResourceLoader.Load("res://entities/cell_items/placeable/chest/chest_machine.tscn");
         AddChild(prefab.Instantiate());
-        tree.CurrentScene.GetNode<Node3D>("/root/PlayerPlaceable/").AddChild(this);
+        tree.CurrentScene.GetNode<Node3D>("/root/Asteroid/PlayerPlaceable/").AddChild(this);
 
     }
     
@@ -40,20 +40,22 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
     public void tick()
     {
         //Iterate over neibhour cells
-        foreach (Cell neighbour in cell.getNeighbours().Values)
+        foreach (Vector3I neighbour in cell.getNeighbours().Values)
         {
-            //If the cell has a cell item
-            if (!neighbour.hasCellItem()) return;
-
-            if (!(neighbour.getCellItem() is IMachineInput)) return;
-
-            IMachineOutput machineOutput = (IMachineOutput) neighbour.getCellItem();
-
+            // Cell targetCell = GridSystem.getCell(neighbour);
+            // //If the cell has a cell item
+            // if (!targetCell.hasCellItem()) return;
             //
-            Item item = inventory.TakeFirstItem();
-            if (!(machineOutput.canOutput(item, this))) return;
-
-            machineOutput.output(item);
+            // if (!(targetCell.getCellItem() is IMachineInput)) return;
+            //
+            // IMachineOutput machineOutput = (IMachineOutput) targetCell.getCellItem();
+            //
+            // //
+            // Item item = inventory.TakeFirstItem();
+            // if (!(machineOutput.canOutput(item, this))) return;
+            //
+            // inventory.RemoveItem(item.GetType(), 1);
+            // machineOutput.output(item);
         }
     }
 

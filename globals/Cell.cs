@@ -11,30 +11,31 @@ public partial class Cell : Node3D
     private ICellItem cellItem;
     private Vector3I position;
 
-    private Dictionary<Direction, Cell> neighbours;
+    private Dictionary<Direction, Vector3I> neighbours;
 
     public Cell(Vector3I position)
     {
         this.position = position;
-        initNeibhours();
-    }
-    public Cell(ICellItem cellItem, Vector3I position)
-    {
-        this.position = position;
-        this.cellItem = cellItem;
-        initNeibhours();
+        initNeighbours();
     }
 
-    private void initNeibhours()
+    public Cell(ICellItem cellItem, Vector3I position)
     {
-        neighbours = new Dictionary<Direction, Cell>();
-        
-        neighbours[Direction.NORTH] = GridSystem.getCell(position + Vector3I.Forward);
-        neighbours[Direction.SOUTH] = GridSystem.getCell(position + Vector3I.Back);
-        neighbours[Direction.EAST] = GridSystem.getCell(position + Vector3I.Right);
-        neighbours[Direction.WEST] = GridSystem.getCell(position + Vector3I.Left);
+        this.cellItem = cellItem;
+        this.position = position;
+        initNeighbours();
     }
     
+    private void initNeighbours()
+    {
+        neighbours = new Dictionary<Direction, Vector3I>();
+
+        neighbours.Add(Direction.NORTH, Vector3I.Forward);
+        neighbours.Add(Direction.SOUTH, Vector3I.Back);
+        neighbours.Add(Direction.EAST, Vector3I.Right);
+        neighbours.Add(Direction.WEST, Vector3I.Left);
+    }
+
     public bool hasCellItem()
     {
         return cellItem != null;
@@ -61,14 +62,14 @@ public partial class Cell : Node3D
         this.position = position;
     }
     
-    public Dictionary<Direction, Cell> getNeighbours()
+    public Dictionary<Direction, Vector3I> getNeighbours()
     {
         return neighbours;
     }
     
     public Cell getNeighbour(Direction direction)
     {
-        return neighbours[direction];
+        return GridSystem.getCell(neighbours[direction]);
     }
 
 }
