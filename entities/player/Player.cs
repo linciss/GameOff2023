@@ -32,7 +32,6 @@ public partial class Player : CharacterBody3D
         inventoryAPI.AddItem(ItemEnum.RawSteel, 10);
         inventoryAPI.AddItem(ItemEnum.RawCopper, 10);
         crafting = new Crafting(Instance);
-        GD.Print(invUi.GetPath());
         invUi.SetInventory(inventoryAPI);
         // Print items to check their status
         // ItemFactory.PrintAllItems();

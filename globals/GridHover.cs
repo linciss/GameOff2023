@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using GameOff2023.entities;
 using GameOff2023.entities.cell_items;
 using GameOff2023.entities.chest;
 using GameOff2023.entities.placeable;
@@ -21,7 +22,6 @@ public partial class GridHover : Node3D
     private bool placeMode = false;
 
     Player player;
-    inv_ui invUI;
     private static GridHover Instance { get; set; }  
     public static GridHover getInstance()
     {
@@ -34,7 +34,6 @@ public partial class GridHover : Node3D
         Instance = this;
         player = Player.GetPlayer();
         progressBar.MaxValue = mineTime;
-        invUI = GetNode<inv_ui>("/root/Asteroid/CanvasLayer/InvUI");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -113,6 +112,12 @@ public partial class GridHover : Node3D
             {
                 mineItem(cell);
             }
+        }else if (Input.IsActionJustPressed("open"))
+        {
+            if (cell.getCellItem() is ChestMachine)
+            {
+                GD.Print("Chest");
+            }
         }
         else
         {
@@ -142,7 +147,9 @@ public partial class GridHover : Node3D
     {
         // TODO check if isint filled
         //GD.Print(pos);
-        if (!GridSystem.getCell((Vector3I)GridSystem.translateToRelativePos(pos)).hasCellItem())
+        Cell targetCell = GridSystem.getCell((Vector3I)GridSystem.translateToRelativePos(pos));
+
+        if (!targetCell.hasCellItem())
         {
             if (Input.IsActionJustPressed("left_mouse_click"))
             {
@@ -150,7 +157,7 @@ public partial class GridHover : Node3D
                 GridSystem.setPosition(
                     pos,
                     new ChestMachine(
-                        GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                        targetCell,
                         GetTree()
                     )
                 );
