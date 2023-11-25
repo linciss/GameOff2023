@@ -119,7 +119,7 @@ public partial class Player : CharacterBody3D
     
     public void handleOpen()
     {
-        if (Input.IsActionJustPressed("open_inv"))
+        if (Input.IsActionJustPressed("open_inv") && !opened)
         {
             opened = !opened;
             invUis.Position = new Vector2(576, 324);
@@ -132,6 +132,7 @@ public partial class Player : CharacterBody3D
     {
         invUis.Position = new Vector2(448, 324);
         invUis.Visible = !invUis.Visible;
+        opened = !opened;
     }
     
     public bool getOpened()
