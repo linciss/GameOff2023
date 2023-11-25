@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch6vmfdy2xq6t"]
+
+[ext_resource type="PackedScene" uid="uid://pmucrb5kmlyu" path="res://entities/cell_items/placeable/belt/Belt.glb" id="1_fj6ec"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82v3m"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Belt" parent="." instance=ExtResource("1_fj6ec")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Belt"]
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Belt/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_82v3m")

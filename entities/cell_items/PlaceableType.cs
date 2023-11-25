@@ -6,5 +6,5 @@ public enum PlaceableType
     Forge,
     TestMachine,
     Chest,
-    
+    None,
 }

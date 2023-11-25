@@ -7,6 +7,8 @@ namespace GameOff2023.entities;
 public interface IPlaceable
 {
     public PlaceableType getType();
+    
+    public Vector3 getRotation();
 
     public void tick();
 }

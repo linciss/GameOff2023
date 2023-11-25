@@ -1,18 +1,25 @@
 using Godot;
 using System;
+using GameOff2023.entities.placeable;
 
 public partial class Hotbar : HBoxContainer
 {
 	// Called when the node enters the scene tree for the first time.
-	public Button mineButton;
-	public Button testPlace1;
+	[Export]
+	private Button mineButton;
+	[Export]
+	private Button beltButton;
+	[Export]
+	private Button chestButton;
 	public override void _Ready()
 	{
-		mineButton=GetNode<Button>("MineButton");
-		testPlace1=GetNode<Button>("TestPlace1");
+		// mineButton=GetNode<Button>("MineButton");
+		// beltButton=GetNode<Button>("BeltButton");
+		// mineButton=GetNode<Button>("ChestButton");
 		
 		mineButton.Connect(Button.SignalName.Pressed, Callable.From(OnMineButtonPressed));
-		testPlace1.Connect(Button.SignalName.Pressed, Callable.From(OnTestPlace1));
+		beltButton.Connect(Button.SignalName.Pressed, Callable.From(OnBeltPlace));
+		chestButton.Connect(Button.SignalName.Pressed, Callable.From(OnChestPlace));
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,11 +30,19 @@ public partial class Hotbar : HBoxContainer
 	public void OnMineButtonPressed()
 	{
 		GridHover.getInstance().setPlaceMode(false);
+		GridHover.getInstance().setPlaceableType(PlaceableType.None);
 	}
 	
-	public void OnTestPlace1()
+	public void OnBeltPlace()
 	{
 		GridHover.getInstance().setPlaceMode(true);
+		GridHover.getInstance().setPlaceableType(PlaceableType.Belt);
+	}
+	
+	public void OnChestPlace()
+	{
+		GridHover.getInstance().setPlaceMode(true);
+		GridHover.getInstance().setPlaceableType(PlaceableType.Chest);
 	}
 	
 	

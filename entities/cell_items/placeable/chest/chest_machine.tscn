@@ -9,6 +9,7 @@
 [node name="chest" parent="." instance=ExtResource("1_l6ew1")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="chest"]
+input_ray_pickable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chest/StaticBody3D"]
 shape = SubResource("BoxShape3D_82v3m")

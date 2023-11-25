@@ -2,6 +2,7 @@
 
 [ext_resource type="MeshLibrary" uid="uid://bxxykrcqlqmg" path="res://scenes/assets/MeshLib.tres" id="1_0g2yv"]
 [ext_resource type="Script" path="res://globals/Hotbar.cs" id="1_ak2my"]
+[ext_resource type="Script" path="res://globals/GridSystem.cs" id="1_ruujv"]
 [ext_resource type="PackedScene" uid="uid://c55rjsd67a4bo" path="res://entities/player/Player.tscn" id="2_u6gbw"]
 [ext_resource type="Script" path="res://globals/GridHover.cs" id="4_yjhyb"]
 [ext_resource type="Texture2D" uid="uid://5plwc18vof18" path="res://scenes/assets/Environment.jpg" id="6_sgiec"]
@@ -9,15 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://cpip5d7s77k4n" path="res://scenes/assets/Progressbar.tscn" id="8_54qws"]
 [ext_resource type="Script" path="res://random/OreDeposit.cs" id="8_qy26n"]
 [ext_resource type="Material" uid="uid://dg0xsp5s3symc" path="res://scenes/assets/Materials/copper_material.tres" id="8_x6nlc"]
-[ext_resource type="PackedScene" uid="uid://ddek4s1oh6cxi" path="res://entities/cell_items/placeable/test/test_machine.tscn" id="10_ahhig"]
 [ext_resource type="PackedScene" uid="uid://bkfhyh0b61fpq" path="res://ui/HUD/HUD.tscn" id="11_vk47x"]
 [ext_resource type="PackedScene" uid="uid://bbvfqinylqfl1" path="res://ui/HUD/inv_ui.tscn" id="12_4uhrx"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sjwho"]
-albedo_color = Color(1, 0.862745, 0.219608, 1)
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_olre4"]
+transparency = 1
+albedo_color = Color(1, 1, 0.352941, 0.34902)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pb8em"]
-material = SubResource("StandardMaterial3D_sjwho")
+material = SubResource("ORMMaterial3D_olre4")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_472pw"]
 
@@ -42,6 +43,7 @@ material = ExtResource("7_728cr")
 material = ExtResource("8_x6nlc")
 
 [node name="Asteroid" type="Node3D"]
+script = ExtResource("1_ruujv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -56,7 +58,7 @@ offset_right = 2.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.73238, 4, -0.522443)
 invUi = NodePath("../CanvasLayer/InvUI")
 
-[node name="Hotbar" type="HBoxContainer" parent="."]
+[node name="Hotbar" type="HBoxContainer" parent="." node_paths=PackedStringArray("mineButton", "beltButton", "chestButton")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -69,15 +71,22 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 script = ExtResource("1_ak2my")
+mineButton = NodePath("MineButton")
+beltButton = NodePath("BeltButton")
+chestButton = NodePath("ChestButton")
 
 [node name="MineButton" type="Button" parent="Hotbar"]
 layout_mode = 2
 text = "Mine"
 
-[node name="TestPlace1" type="Button" parent="Hotbar"]
+[node name="BeltButton" type="Button" parent="Hotbar"]
 layout_mode = 2
-text = "Test Place
+text = "Belt
 "
+
+[node name="ChestButton" type="Button" parent="Hotbar"]
+layout_mode = 2
+text = "Chest"
 
 [node name="SUN" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.395401, 0.918509, 0, -0.918509, 0.395401, 0, 13.9043, 6.69046)
@@ -152,8 +161,3 @@ item = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MiningDeposits/Copper_1/Copper/StaticBody3D"]
 shape = SubResource("BoxShape3D_472pw")
-
-[node name="MachinePrefabs" type="Node3D" parent="."]
-visible = false
-
-[node name="TestMachine" parent="MachinePrefabs" instance=ExtResource("10_ahhig")]

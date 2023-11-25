@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using GameOff2023.entities;
+using GameOff2023.entities.belt;
 using GameOff2023.entities.cell_items;
 using GameOff2023.entities.chest;
 using GameOff2023.entities.placeable;
@@ -19,6 +21,8 @@ public partial class GridHover : Node3D
 
     [Export]
     private bool placeMode = false;
+
+    private PlaceableType placeableType = PlaceableType.None;
 
     Player player;
     inv_ui invUI;
@@ -43,6 +47,8 @@ public partial class GridHover : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
+        handleRotation();
+        
         Vector2 mousePosition = GetViewport().GetMousePosition();
 
         Camera3D camera = GetViewport().GetCamera3D();
@@ -70,11 +76,15 @@ public partial class GridHover : Node3D
             
             //Sets hover objects postion
             Position = GridSystem.translateToRelativePos(targetPos);
+            
+            GD.Print("real: "+ targetPos);
+            GD.Print("relative: "+ GridSystem.translateToRelativePos(targetPos));
+            GD.Print("grid: "+ GridSystem.translateToGridPos(targetPos));
 
             if (placeMode)
             {
-                handleHoverPlace(targetPos, delta);
-            }else if (GridSystem.getCell((Vector3I)targetPos).hasCellItem())
+                handleHoverPlace(GridSystem.translateToGridPos(Position), delta);
+            }else if (GridSystem.getCell(GridSystem.translateToGridPos(Position)).hasCellItem())
             {
                 handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
             }else
@@ -122,6 +132,21 @@ public partial class GridHover : Node3D
         }
     }
 
+    public void handleRotation()
+    {
+        if (Input.IsActionJustPressed("rotate_right"))
+        {
+            RotationDegrees = new Vector3(RotationDegrees.X, RotationDegrees.Y - 90, RotationDegrees.Z);
+            if (RotationDegrees.Y <= -360) RotationDegrees = new Vector3(RotationDegrees.X, 0, RotationDegrees.Z);
+        }
+        else if (Input.IsActionJustPressed("rotate_left"))
+        {
+            RotationDegrees = new Vector3(RotationDegrees.X, RotationDegrees.Y + 90, RotationDegrees.Z);
+            if (RotationDegrees.Y >= 360) RotationDegrees = new Vector3(RotationDegrees.X, 0, RotationDegrees.Z);
+        }
+        
+    }
+    
     public void mineItem(Cell cell)
     {
         //Get placeable item from cell
@@ -138,22 +163,40 @@ public partial class GridHover : Node3D
         player.inventoryAPI.PrintAllItems();
     }
 
-    public void handleHoverPlace(Vector3 pos, double delta)
+    public void handleHoverPlace(Vector3I pos, double delta)
     {
+        
         if (Input.IsActionJustPressed("left_mouse_click"))
         {// TODO check if isint filled
-            GridSystem.setPosition(
-                pos, 
-            new ChestMachine(
-                    GridSystem.getCell(GridSystem.translateToGridPos(pos)),
-                    GetTree()
-                )
-                );
-        }else if (Input.IsActionJustPressed("right_mouse_click"))
-        {
-           //TODO interact
-           
+            GD.Print("HOVER PLACE POS: " + pos);
+            ICellItem toBePlaced=null;
+            switch (placeableType)
+            {
+                case PlaceableType.None:
+                    break;
+                case PlaceableType.Belt:
+                    toBePlaced = new BeltMachine(
+                        GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                        RotationDegrees,
+                        GetTree()
+                    );
+                    break;
+                case PlaceableType.Chest:
+                    toBePlaced = new ChestMachine(
+                        GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                        RotationDegrees,
+                        GetTree()
+                    );
+                    break;
+            }
+            if (toBePlaced == null) return;
+            GridSystem.setPosition( pos, toBePlaced );
         }
+        // else if (Input.IsActionJustPressed("right_mouse_click"))
+        // {
+        //    //TODO interact
+        //    
+        // }
     }
     
     public void setPlaceMode(bool placeMode)
@@ -164,5 +207,10 @@ public partial class GridHover : Node3D
     public bool getPlaceMode()
     {
         return placeMode;
+    }
+    
+    public void setPlaceableType(PlaceableType placeableType)
+    {
+        this.placeableType = placeableType;
     }
 }
