@@ -9,19 +9,39 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
     private Cell cell;
     private Node3D node;
     private InventoryAPI inventory;
+    private Control invInstance;
+    private inv_ui invUis;
+    private static bool opened = false;
 
-    public ChestMachine(Cell cell, SceneTree tree)
+    public ChestMachine(Cell cell, SceneTree tree, int quantity)
     {
         node = this;
         this.cell = cell;
-        inventory = new InventoryAPI();
         
-        PackedScene prefab = (PackedScene)ResourceLoader.Load("res://entities/cell_items/placeable/chest/chest_machine.tscn");
+        GD.Print();
+        PackedScene prefab =
+            (PackedScene)ResourceLoader.Load("res://entities/cell_items/placeable/chest/chest_machine.tscn");
         AddChild(prefab.Instantiate());
         tree.CurrentScene.GetNode<Node3D>("/root/Asteroid/PlayerPlaceable/").AddChild(this);
+        inventory = new InventoryAPI();
+        inventory.AddItem(ItemEnum.RawCopper, quantity);
 
+        PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/chest_ui.tscn");
+        if (invScene != null)
+        {
+            invInstance = (Control)invScene.Instantiate();
+            invUis = invInstance as inv_ui;
+            AddChild(invInstance);
+
+            inv_ui invUi = invInstance as inv_ui;
+
+            if (invUi != null)
+            {
+                invUi.SetInventory(inventory, "Chest");
+            }
+        }
     }
-    
+
     public Node3D getNode()
     {
         return node;
@@ -68,7 +88,10 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
     {
         inventory.AddItem(item.GetType(), item.quantity);
     }
-    
-    
+
+    public void handleOpen()
+    {
+        invUis.Visible = !invUis.Visible;
+    }
     
 }

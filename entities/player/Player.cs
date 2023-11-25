@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using GameOff2023.entities.chest;
 
 public partial class Player : CharacterBody3D
 {
@@ -16,10 +17,13 @@ public partial class Player : CharacterBody3D
     [Export]
     private MeshInstance3D mesh;
 
-    public InventoryAPI inventoryAPI = new InventoryAPI();
+    public InventoryAPI inventory = new InventoryAPI();
     private Crafting crafting;
-    [Export]
-    private inv_ui invUi;
+
+    public inv_ui invUis;
+    private Control invInstance;
+    // [Export]
+    // private inv_ui invUi;
 
     
     // Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -29,10 +33,26 @@ public partial class Player : CharacterBody3D
         
         Instance = this;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-        inventoryAPI.AddItem(ItemEnum.RawSteel, 10);
-        inventoryAPI.AddItem(ItemEnum.RawCopper, 10);
+        inventory.AddItem(ItemEnum.RawSteel, 10);
+        inventory.AddItem(ItemEnum.RawCopper, 10);
         crafting = new Crafting(Instance);
-        invUi.SetInventory(inventoryAPI);
+        
+        
+        PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/player_ui.tscn");
+        if (invScene != null)
+        {
+            invInstance = (Control)invScene.Instantiate();
+            invUis = invInstance as inv_ui;
+            AddChild(invInstance);
+            
+            inv_ui invUi = invInstance as inv_ui;
+        
+            if (invUi != null)
+            {
+                invUi.SetInventory(inventory, "Player123");
+            }
+        }
+        
         // Print items to check their status
         // ItemFactory.PrintAllItems();
         // inventoryAPI.PrintAllItems();
@@ -41,9 +61,7 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-       
         Vector3 velocity = Velocity;
-
 
         Transform3D camXform = camera.GlobalTransform;
         Vector3 cameraForward = -camXform.Basis.Z; // Assuming camera's forward axis is -z.
@@ -83,17 +101,41 @@ public partial class Player : CharacterBody3D
             velocity.Y = JumpVelocity;
             crafting.CheckCraftable();
             crafting.CraftItem(ItemEnum.CircuitBoard);
-            inventoryAPI.PrintAllItems();
+            inventory.PrintAllItems();
         }
            
         
 
         Velocity = velocity;
         MoveAndSlide();
-        
+        handleOpen();
     }
     public static Player GetPlayer()
     {
         return Instance;
+    }
+    
+    private bool opened = false;
+    
+    public void handleOpen()
+    {
+        if (Input.IsActionJustPressed("open_inv"))
+        {
+            opened = !opened;
+            invUis.Position = new Vector2(576, 324);
+            invUis.Visible = !invUis.Visible;
+        }
+        if(Input.IsActionJustPressed("close_inv"))
+            opened = false;
+    }
+    public void openAdjacent()
+    {
+        invUis.Position = new Vector2(448, 324);
+        invUis.Visible = !invUis.Visible;
+    }
+    
+    public bool getOpened()
+    {
+        return opened;
     }
 }

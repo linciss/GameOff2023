@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c55rjsd67a4bo"]
+[gd_scene load_steps=14 format=3 uid="uid://c55rjsd67a4bo"]
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_8epgl"]
-[ext_resource type="PackedScene" uid="uid://bbvfqinylqfl1" path="res://ui/HUD/inv_ui.tscn" id="2_heqih"]
 [ext_resource type="PackedScene" uid="uid://bkfhyh0b61fpq" path="res://ui/HUD/HUD.tscn" id="3_41qt1"]
-[ext_resource type="Script" path="res://globals/Inventory/InventoryAPI.cs" id="3_eey8f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
 height = 1.0
@@ -34,10 +32,9 @@ length = 0.6
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_cg2v6"]
 length = 0.6
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "invUi")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_63rsw")
 camera = NodePath("Camera3D2")
-invUi = NodePath("CanvasLayer/InvUI")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -83,11 +80,8 @@ size = 15.0
 script = ExtResource("2_8epgl")
 
 [node name="Node" type="Node" parent="."]
-script = ExtResource("3_eey8f")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="InvUI" parent="CanvasLayer" instance=ExtResource("2_heqih")]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("3_41qt1")]
 visible = false

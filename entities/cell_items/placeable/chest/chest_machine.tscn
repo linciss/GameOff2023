@@ -12,3 +12,5 @@
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="chest/StaticBody3D"]
 shape = SubResource("BoxShape3D_82v3m")
+
+[node name="Node" type="Node" parent="chest"]

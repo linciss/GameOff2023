@@ -112,11 +112,17 @@ public partial class GridHover : Node3D
             {
                 mineItem(cell);
             }
-        }else if (Input.IsActionJustPressed("open"))
+        }else if (Input.IsActionJustPressed("open_placeable"))
         {
             if (cell.getCellItem() is ChestMachine)
             {
-                GD.Print("Chest");
+                GD.Print("OPENNN!!!!!");
+                ChestMachine chestMachine = (ChestMachine)cell.getCellItem();
+                if (!player.getOpened())
+                {
+                    chestMachine.handleOpen();
+                    player.openAdjacent();
+                }
             }
         }
         else
@@ -137,12 +143,13 @@ public partial class GridHover : Node3D
 
         //If scoobi doobi do is Ore
         IOre ore = (IOre)item;
-        player.inventoryAPI.AddItem(ore.getOreType(), 1);
+        player.inventory.AddItem(ore.getOreType(), 1);
         
         holdTime = 0.0f;
-        player.inventoryAPI.PrintAllItems();
+        player.inventory.PrintAllItems();
     }
 
+    private int quantity = 1;
     public void handleHoverPlace(Vector3 pos, double delta)
     {
         // TODO check if isint filled
@@ -158,9 +165,11 @@ public partial class GridHover : Node3D
                     pos,
                     new ChestMachine(
                         targetCell,
-                        GetTree()
+                        GetTree(),
+                        quantity
                     )
                 );
+                quantity++;
             }
         }
     }

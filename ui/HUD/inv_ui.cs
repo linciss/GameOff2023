@@ -1,16 +1,21 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using GameOff2023.entities;
+using GameOff2023.entities.chest;
+using GameOff2023.entities.placeable;
 
 public partial class inv_ui : Control
 {
-    bool open = false;
+    public bool open = false;
     [Export]
     public Slot[] slots;
-
+    private ICellItem cellItem;
+    [Export] private Label test;
     [Export]
     private GridContainer gridContainer;
 
+    public string name = "lfuck off";
     IInventory inventory;
 
     public override void _Ready()
@@ -25,19 +30,28 @@ public partial class inv_ui : Control
             {
                 Node childNode = gridContainer.GetChild(i);
                 slots[i] = childNode as Slot;
+                GD.Print("slot loaded");
             }
         }
         else
         {
             GD.Print("GridContainer not found.");
         }
+
+        Visible = false;
     }
     
-    public void SetInventory(IInventory newInventory)
+    public void SetInventory(IInventory newInventory, string entity)
     {
+        test.Text = entity;
+        
+        if (inventory != null)
+        {
+            inventory.InventoryChanged -= UpdateSlots;
+        }
+
         inventory = newInventory;
 
-        //this shit hooks to interface method
         if (inventory != null)
         {
             inventory.InventoryChanged += UpdateSlots;
@@ -71,17 +85,7 @@ public partial class inv_ui : Control
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("open_inv"))
-        {
-            open = !open;
-        }
-        if (open)
-        {
-            Show();
-        }
-        else
-        {
-            Hide();
-        }
+        if(Input.IsActionJustPressed("close_inv"))
+            Visible = false;
     }
 }

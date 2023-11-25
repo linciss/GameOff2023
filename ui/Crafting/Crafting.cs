@@ -44,12 +44,12 @@ public partial class Crafting : Node
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnum);
 
-			    if (!player.inventoryAPI.inventory.ContainsKey(itemEnum))
+			    if (!player.inventory.inventory.ContainsKey(itemEnum))
 			    {
 				    craftableAvailable = false;
 				    break;
 			    }
-			    else if (player.inventoryAPI.inventory[itemEnum].quantity < recipe.quantity)
+			    else if (player.inventory.inventory[itemEnum].quantity < recipe.quantity)
 			    {
 				    craftableAvailable = false;
 				    break;
@@ -74,9 +74,9 @@ public partial class Crafting : Node
 		    foreach (var recipe in availableCraftables[itemEnum].recipe)
 		    {
 			    Enum.TryParse(recipe.item, out ItemEnum itemEnumRecipe);
-			    player.inventoryAPI.RemoveItem(itemEnumRecipe, recipe.quantity);
+			    player.inventory.RemoveItem(itemEnumRecipe, recipe.quantity);
 		    }
-		    player.inventoryAPI.AddItem(itemEnum, 1);
+		    player.inventory.AddItem(itemEnum, 1);
 	    }else
 		    GD.Print($"Not enough resources to craft {itemEnum}");
     }
