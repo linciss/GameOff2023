@@ -140,22 +140,24 @@ public partial class GridHover : Node3D
 
     public void handleHoverPlace(Vector3 pos, double delta)
     {
-        if (Input.IsActionJustPressed("left_mouse_click"))
-        {// TODO check if isint filled
-            GridSystem.setPosition(
-                pos, 
-            new ChestMachine(
-                    GridSystem.getCell(GridSystem.translateToGridPos(pos)),
-                    GetTree()
-                )
-                );
-        }else if (Input.IsActionJustPressed("right_mouse_click"))
+        // TODO check if isint filled
+        //GD.Print(pos);
+        if (!GridSystem.getCell((Vector3I)GridSystem.translateToRelativePos(pos)).hasCellItem())
         {
-           //TODO interact
-           
+            if (Input.IsActionJustPressed("left_mouse_click"))
+            {
+                GD.Print("Placed!");
+                GridSystem.setPosition(
+                    pos,
+                    new ChestMachine(
+                        GridSystem.getCell(GridSystem.translateToGridPos(pos)),
+                        GetTree()
+                    )
+                );
+            }
         }
     }
-    
+
     public void setPlaceMode(bool placeMode)
     {
         this.placeMode = placeMode;
