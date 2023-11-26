@@ -30,14 +30,12 @@ public partial class Player : CharacterBody3D
     public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
     public override void _Ready()
     {
-        
+       
         Instance = this;
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory.AddItem(ItemEnum.RawSteel, 10);
         inventory.AddItem(ItemEnum.RawCopper, 10);
         crafting = new Crafting(Instance);
-        
-        
         PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/player_ui.tscn");
         if (invScene != null)
         {
@@ -54,8 +52,8 @@ public partial class Player : CharacterBody3D
         }
         
         // Print items to check their status
-        // ItemFactory.PrintAllItems();
-        // inventoryAPI.PrintAllItems();
+        //ItemFactory.PrintAllItems();
+        inventory.PrintAllItems();
     }
 
 

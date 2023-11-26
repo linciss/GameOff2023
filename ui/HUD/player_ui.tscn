@@ -13,21 +13,22 @@ fill_from = Vector2(0.662162, 0.834459)
 specular_texture = SubResource("GradientTexture2D_0sb3b")
 specular_color = Color(0.392157, 0.117647, 0.14902, 1)
 
-[node name="player_ui" type="Control" node_paths=PackedStringArray("slots", "test", "gridContainer")]
+[node name="player_ui" type="Control" node_paths=PackedStringArray("slots", "test", "gridContainer", "heldItemSprite")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_right = -128.0
+offset_left = -136.0
+offset_right = -136.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tqcmc")
 slots = []
 test = NodePath("NinePatchRect/Label")
 gridContainer = NodePath("NinePatchRect/GridContainer")
+heldItemSprite = NodePath("Sprite2D")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -111,4 +112,5 @@ layout_mode = 2
 [node name="Slot12" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pi3in")]
 layout_mode = 2
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-439, -324)

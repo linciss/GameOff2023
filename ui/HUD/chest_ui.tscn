@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0jn03j77wpoa"]
+[gd_scene load_steps=6 format=3 uid="uid://c7fcomdeqw2ik"]
 
-[ext_resource type="Script" path="res://ui/HUD/inv_ui.cs" id="1_ggtmx"]
-[ext_resource type="PackedScene" uid="uid://dh5tcbot28823" path="res://ui/HUD/slot.tscn" id="2_pj5xr"]
+[ext_resource type="Script" path="res://ui/HUD/inv_ui.cs" id="1_kvkbn"]
+[ext_resource type="PackedScene" uid="uid://dh5tcbot28823" path="res://ui/HUD/slot.tscn" id="2_wp736"]
 
 [sub_resource type="Gradient" id="Gradient_m2pus"]
 
@@ -13,7 +13,7 @@ fill_from = Vector2(0.662162, 0.834459)
 specular_texture = SubResource("GradientTexture2D_0sb3b")
 specular_color = Color(0.392157, 0.117647, 0.14902, 1)
 
-[node name="chest_ui" type="Control" node_paths=PackedStringArray("slots", "test", "gridContainer")]
+[node name="chest_ui" type="Control" node_paths=PackedStringArray("slots", "test", "gridContainer", "heldItemSprite")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -24,10 +24,11 @@ offset_left = 128.0
 offset_right = 128.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ggtmx")
+script = ExtResource("1_kvkbn")
 slots = []
 test = NodePath("NinePatchRect/Label")
 gridContainer = NodePath("NinePatchRect/GridContainer")
+heldItemSprite = NodePath("Sprite2D")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -73,40 +74,43 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 4
 
-[node name="Slot" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="Slot2" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot2" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot3" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot3" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot4" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot4" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot5" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot5" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot6" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot6" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot7" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot7" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot8" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot8" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot9" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot9" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot10" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot10" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot11" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot11" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
 
-[node name="Slot12" parent="NinePatchRect/GridContainer" instance=ExtResource("2_pj5xr")]
+[node name="Slot12" parent="NinePatchRect/GridContainer" instance=ExtResource("2_wp736")]
 layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-439, -324)

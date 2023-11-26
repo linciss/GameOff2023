@@ -91,46 +91,50 @@ public partial class GridHover : Node3D
     Cell lastCell = null; 
     public void handleHover(Cell cell, double delta)
     {
-        //Checks if the cell is changed
-        if (cell != lastCell)
+        if (!player.getOpened())
         {
-            holdTime = 0.0f;
-            lastCell = cell;
-        }
-        
-        //Detect if left click
-        if (Input.IsActionPressed("left_mouse_click") && !placeMode)
-        {
-
-            isHeld = true;
-            holdTime += (float)delta;
-            progressBar.Value = holdTime / mineTime;
-
-            progressBar.Visible = true;
-
-            if (holdTime >= mineTime)
+            //Checks if the cell is changed
+            if (cell != lastCell)
             {
-                mineItem(cell);
+                holdTime = 0.0f;
+                lastCell = cell;
             }
-        }else if (Input.IsActionJustPressed("open_placeable"))
-        {
-            if (cell.getCellItem() is ChestMachine)
+        
+            //Detect if left click
+            if (Input.IsActionPressed("left_mouse_click") && !placeMode)
             {
-                GD.Print("OPENNN!!!!!");
-                ChestMachine chestMachine = (ChestMachine)cell.getCellItem();
-                if (!player.getOpened())
+
+                isHeld = true;
+                holdTime += (float)delta;
+                progressBar.Value = holdTime / mineTime;
+
+                progressBar.Visible = true;
+
+                if (holdTime >= mineTime)
                 {
-                    chestMachine.handleOpen();
-                    player.openAdjacent();
+                    mineItem(cell);
+                }
+            }else if (Input.IsActionJustPressed("open_placeable"))
+            {
+                if (cell.getCellItem() is ChestMachine)
+                {
+                    GD.Print("OPENNN!!!!!");
+                    ChestMachine chestMachine = (ChestMachine)cell.getCellItem();
+                    if (!player.getOpened())
+                    {
+                        chestMachine.handleOpen();
+                        player.openAdjacent();
+                    }
                 }
             }
+            else
+            {
+                isHeld = false;
+                holdTime = 0.0f;
+                progressBar.Visible = false;
+            }
         }
-        else
-        {
-            isHeld = false;
-            holdTime = 0.0f;
-            progressBar.Visible = false;
-        }
+       
     }
 
     public void mineItem(Cell cell)
