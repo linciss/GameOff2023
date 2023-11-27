@@ -22,6 +22,7 @@ public partial class Player : CharacterBody3D
 
     public inv_ui invUis;
     private Control invInstance;
+    
     // [Export]
     // private inv_ui invUi;
 
@@ -32,6 +33,7 @@ public partial class Player : CharacterBody3D
     {
        
         Instance = this;
+        player_instance.setPlayer(this);
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory.AddItem(ItemEnum.RawSteel, 10);
         inventory.AddItem(ItemEnum.RawCopper, 10);
@@ -47,7 +49,7 @@ public partial class Player : CharacterBody3D
         
             if (invUi != null)
             {
-                invUi.SetInventory(inventory, "Player123");
+                invUi.SetInventory(inventory, "Player");
             }
         }
         
@@ -120,18 +122,18 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("open_inv") && !opened)
         {
             opened = !opened;
-            invUis.Position = new Vector2(576, 324);
-            invUis.Visible = !invUis.Visible;
+            invInstance.Position = new Vector2(576, 324);
+            invInstance.Visible = !invInstance.Visible;
         }
         if(Input.IsActionJustPressed("close_inv"))
             opened = false;
     }
-    public void openAdjacent()
-    {
-        invUis.Position = new Vector2(448, 324);
-        invUis.Visible = !invUis.Visible;
-        opened = !opened;
-    }
+    // public void openAdjacent()
+    // {
+    //     invInstance.Position = new Vector2(448, 324);
+    //     invInstance.Visible = !invInstance.Visible;
+    //     opened = !opened;
+    // }
     
     public bool getOpened()
     {

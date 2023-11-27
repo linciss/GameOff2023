@@ -1,4 +1,5 @@
 ﻿using GameOff2023.entities.placeable;
+using GameOff2023.globals.Inventory;
 using GameOff2023.random;
 using Godot;
 
@@ -9,9 +10,8 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
     private Cell cell;
     private Node3D node;
     private InventoryAPI inventory;
-    private Control invInstance;
-    private inv_ui invUis;
     private static bool opened = false;
+    private externalInv invUi;
     
     public ChestMachine(Cell cell, SceneTree tree, int quantity)
     {
@@ -26,20 +26,7 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
         
         inventory = new InventoryAPI();
         inventory.AddItem(ItemEnum.RawCopper, quantity);
-        PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/chest_ui.tscn");
-        if (invScene != null)
-        {
-            invInstance = (Control)invScene.Instantiate();
-            invUis = invInstance as inv_ui;
-            AddChild(invInstance);
-            invUis.Position = new Vector2(704, 324);
-            inv_ui invUi = invInstance as inv_ui;
         
-            if (invUi != null)
-            {
-                invUi.SetInventory(inventory, "Chest");
-            }
-        }
     }
 
     public Node3D getNode()
@@ -91,7 +78,36 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
 
     public void handleOpen()
     {
-        invUis.Visible = !invUis.Visible;
+        if (invUi == null)
+        {
+            PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/InventoryInterface.tscn");
+
+            if (invScene != null)
+            {
+                invUi = (externalInv)invScene.Instantiate();
+                invUi.SetChestInventory(inventory, "Chest");
+                AddChild(invUi);
+                invUi.Visible = true;
+            }
+        }
     }
-    
+
+    public void handleClose()
+    {
+        if (Input.IsActionJustPressed("close_inv"))
+        {
+            if (invUi != null)
+            {
+                invUi.Visible = false;
+                invUi.QueueFree();
+                invUi = null;
+                GD.Print("SCene deleted madafaker");
+            }
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        handleClose();
+    }
 }

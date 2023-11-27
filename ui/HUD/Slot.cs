@@ -21,7 +21,8 @@ public partial class Slot : Panel, IItemHolder
 	{
 		if (item == null)
 		{
-			label.Text = "";
+			this.item = null;
+			label.Text = null;
 			sprite.Texture = null;
 			sprite.Visible = false;
 		}
@@ -29,7 +30,6 @@ public partial class Slot : Panel, IItemHolder
 		{
 			this.item = item;
 			Texture2D texture = GD.Load<Texture2D>(item.image);
-			GD.Print($"{item.quantity}");
 			label.Text = item.quantity.ToString();
 			label.Visible = true;
 			float desiredWidth = 17.0f;
@@ -51,7 +51,6 @@ public partial class Slot : Panel, IItemHolder
 			{
 				itemHolder.SetGrabbedItem(this);
 				itemHolder.SetCurrentSlotIndex(GetIndex());
-
 			}
 			else
 			{
@@ -99,4 +98,21 @@ public partial class Slot : Panel, IItemHolder
 		return item;
 	}
 	
+	public void AddItemToSlot(Slot slot)
+	{
+		if (slot != null)
+		{
+			update(slot.getItem());
+		}
+	}
+
+	public Slot GetGrabbedItem()
+	{
+		return grabbedItem;
+	}
+
+	public void RemoveItemFromSlot(Slot slot)
+	{
+		update(null);
+	}
 }

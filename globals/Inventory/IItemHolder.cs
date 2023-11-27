@@ -7,4 +7,5 @@ public interface IItemHolder
     void SetGrabbedState(bool state);
     void SetSlotIndex(int index);
     void SetCurrentSlotIndex(int index);
+    
 }

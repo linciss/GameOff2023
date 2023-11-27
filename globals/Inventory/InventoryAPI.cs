@@ -16,7 +16,6 @@ public partial class InventoryAPI : Node, IInventory
     {
         this.maxSlots = maxSlots;
     }
-    
     public void AddItem(ItemEnum itemEnum, int quantity) //TODO check if item is full if so add to next slot
     {
         if (inventory.ContainsKey(itemEnum))
@@ -52,34 +51,6 @@ public partial class InventoryAPI : Node, IInventory
 
         NotifyInventoryChanged();
     }
-    
-    public bool CanAddItem(ItemEnum itemEnum, int quantity)
-    {
-        if (inventory.ContainsKey(itemEnum)) {
-            // Check if adding the specified quantity would exceed the item's maximum stack size
-            if (inventory[itemEnum].quantity + quantity > ItemFactory.GetItemMaxStackSize(itemEnum)) {
-                return false;
-            }
-        }
-
-        // Check if adding the item would exceed the total inventory slots
-        if (inventory.Count + 1 > maxSlots) {
-            return false;
-        }
-
-        return true;
-    }
-    
-    public Item TakeFirstItem()
-    {
-        Item item = null;
-        foreach (var kvp in inventory)
-        {
-            item = kvp.Value;
-            break;
-        }
-        return item;
-    }
 
     public Dictionary<ItemEnum, Item> GetInventory()
     {
@@ -99,4 +70,22 @@ public partial class InventoryAPI : Node, IInventory
     {
         InventoryChanged?.Invoke();
     }
+    
+    public bool CanAddItem(ItemEnum itemEnum, int quantity)
+    {
+        if (inventory.ContainsKey(itemEnum)) 
+        {
+            if (inventory[itemEnum].quantity + quantity > ItemFactory.GetItemMaxStackSize(itemEnum)) 
+            {
+                return false;
+            }
+        }
+        if (inventory.Count + 1 > maxSlots) 
+        {
+            return false;
+        }
+
+        return true;
+    }
+
 }

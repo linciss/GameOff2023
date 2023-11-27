@@ -118,12 +118,10 @@ public partial class GridHover : Node3D
             {
                 if (cell.getCellItem() is ChestMachine)
                 {
-                    GD.Print("OPENNN!!!!!");
                     ChestMachine chestMachine = (ChestMachine)cell.getCellItem();
                     if (!player.getOpened())
                     {
                         chestMachine.handleOpen();
-                        player.openAdjacent();
                     }
                 }
             }

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 InventoryApi="*res://globals/Inventory/InventoryAPI.cs"
 ItemFactory="*res://globals/Inventory/ItemFactory.cs"
+PlayerInstance="*res://player_instance.cs"
 
 [dotnet]
 
