@@ -5,15 +5,15 @@
 
 [sub_resource type="Gradient" id="Gradient_sp0eh"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_b0btb"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dmexp"]
 gradient = SubResource("Gradient_sp0eh")
 fill_from = Vector2(0.662162, 0.834459)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_xuyn4"]
-specular_texture = SubResource("GradientTexture2D_b0btb")
+specular_texture = SubResource("GradientTexture2D_dmexp")
 specular_color = Color(0.392157, 0.117647, 0.14902, 1)
 
-[node name="InventoryInterface" type="Control" node_paths=PackedStringArray("playerSlots", "chestSlots", "playerGridContainer", "chestGridContainer", "heldItemSprite")]
+[node name="ExternalInventory" type="Control" node_paths=PackedStringArray("playerSlots", "chestSlots", "playerGridContainer", "chestGridContainer", "heldItemSprite")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,13 +50,20 @@ patch_margin_right = 5
 patch_margin_bottom = 5
 
 [node name="Label" type="Label" parent="External"]
-layout_mode = 0
-offset_left = 87.5
-offset_top = 0.5
-offset_right = 145.5
-offset_bottom = 26.5
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -99.5
+offset_right = 21.0
+offset_bottom = -73.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "PLAYER in Chest
+text = "Chest
 "
 
 [node name="ExternalGridContainer" type="GridContainer" parent="External"]
@@ -133,13 +140,12 @@ patch_margin_bottom = 5
 
 [node name="Label" type="Label" parent="Player"]
 layout_mode = 0
-offset_left = 87.5
-offset_top = 0.5
-offset_right = 145.5
-offset_bottom = 26.5
+offset_left = 104.0
+offset_top = 1.0
+offset_right = 153.0
+offset_bottom = 27.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "PLAYER in Chest
-"
+text = "Player"
 
 [node name="PlayerGridContainer" type="GridContainer" parent="Player"]
 layout_mode = 1

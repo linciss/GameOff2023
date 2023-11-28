@@ -21,8 +21,8 @@ public partial class Slot : Panel, IItemHolder
 	{
 		if (item == null)
 		{
+			label.Text = "";
 			this.item = null;
-			label.Text = null;
 			sprite.Texture = null;
 			sprite.Visible = false;
 		}
@@ -31,12 +31,8 @@ public partial class Slot : Panel, IItemHolder
 			this.item = item;
 			Texture2D texture = GD.Load<Texture2D>(item.image);
 			
-			if (label != null)
-			{
-				label.Text = item.quantity.ToString();
-				label.Visible = true;
-			}
-
+			label.Text = item.quantity.ToString();
+			label.Visible = true;
 			float desiredWidth = 17.0f;
 			float desiredHeight = 17.0f;
 			float originalWidth = texture.GetWidth();
@@ -119,5 +115,13 @@ public partial class Slot : Panel, IItemHolder
 	public void RemoveItemFromSlot(Slot slot)
 	{
 		update(null);
+	}
+	public void setLabel(string text)
+	{
+		label.Text = text;
+	}
+	public Slot getSlot()
+	{
+		return this;
 	}
 }

@@ -27,13 +27,21 @@
 	  "name": "SteelPlate",
 	  "quantity": 0,
 	  "maxQuantity": 200,
-	  "image": ""
+	  "image": "res://ui/HUD/Assets/SteelPlate.png",
+	  "recipe" : [
+		{"item": "RawSteel", "quantity": 5 }, 
+		{"item": "RawCopper", "quantity": 5}
+	   ]
 	},
 	{
 	  "name": "CopperPlate",
 	  "quantity": 0,
 	  "maxQuantity": 200,
-	  "image": ""
+	  "image": "res://ui/HUD/Assets/CopperPlate.png",
+	  "recipe" : [
+		{"item": "RawSteel", "quantity": 5 }, 
+		{"item": "RawCopper", "quantity": 5}
+	   ]
 	},
 	{
 	  "name": "CircuitBoard",
@@ -41,8 +49,8 @@
 	  "maxQuantity": 200,
 	  "image": "res://ui/HUD/Assets/CircuitBoard.png",
 	  "recipe" : [
-		{"item": "RawSteel", "quantity": 5 }, 
-		{"item": "RawCopper", "quantity": 5}
+		{"item": "RawSteel", "quantity": 10 }, 
+		{"item": "RawCopper", "quantity": 10}
 	   ]
 	},
 	{

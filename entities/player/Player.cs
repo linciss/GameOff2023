@@ -22,6 +22,7 @@ public partial class Player : CharacterBody3D
 
     public inv_ui invUis;
     private Control invInstance;
+    private Crafting craftInstance;
     
     // [Export]
     // private inv_ui invUi;
@@ -37,7 +38,6 @@ public partial class Player : CharacterBody3D
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
         inventory.AddItem(ItemEnum.RawSteel, 10);
         inventory.AddItem(ItemEnum.RawCopper, 10);
-        crafting = new Crafting(Instance);
         PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/player_ui.tscn");
         if (invScene != null)
         {
@@ -99,9 +99,6 @@ public partial class Player : CharacterBody3D
         if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
         {
             velocity.Y = JumpVelocity;
-            crafting.CheckCraftable();
-            crafting.CraftItem(ItemEnum.CircuitBoard);
-            inventory.PrintAllItems();
         }
            
         
@@ -116,7 +113,7 @@ public partial class Player : CharacterBody3D
     }
     
     private bool opened = false;
-    
+    private bool craftingOpen = false;
     public void handleOpen()
     {
         if (Input.IsActionJustPressed("open_inv") && !opened)
@@ -127,13 +124,31 @@ public partial class Player : CharacterBody3D
         }
         if(Input.IsActionJustPressed("close_inv"))
             opened = false;
+        
+        if (Input.IsActionJustPressed("open_craft") && !craftingOpen)
+        {
+            if (craftInstance == null)
+            {
+                PackedScene craftingScene = GD.Load<PackedScene>("res://ui/HUD/CraftingScene.tscn");
+                if (craftingScene != null)
+                {
+                    craftInstance = (Crafting)craftingScene.Instantiate();
+                    AddChild(craftInstance);
+                    craftInstance.Visible = true;
+                    craftingOpen = true;
+                }
+            }
+        }else if (Input.IsActionJustPressed("open_craft") && craftingOpen)
+        {
+            if(craftInstance != null && IsInstanceValid(craftInstance))
+            {
+                craftInstance.Visible = false;
+                RemoveChild(craftInstance);
+                craftInstance = null;
+                craftingOpen = false;
+            }
+        }
     }
-    // public void openAdjacent()
-    // {
-    //     invInstance.Position = new Vector2(448, 324);
-    //     invInstance.Visible = !invInstance.Visible;
-    //     opened = !opened;
-    // }
     
     public bool getOpened()
     {
