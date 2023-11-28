@@ -90,18 +90,19 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
                 invUi.Visible = true;
             }
         }
+        
     }
 
     public void handleClose()
     {
         if (Input.IsActionJustPressed("close_inv"))
         {
-            if (invUi != null)
+            if (invUi != null && IsInstanceValid(invUi))
             {
                 invUi.Visible = false;
-                invUi.QueueFree();
+                RemoveChild(invUi);
                 invUi = null;
-                GD.Print("SCene deleted madafaker");
+                GD.Print("Scene deleted");
             }
         }
     }

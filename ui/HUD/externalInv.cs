@@ -75,15 +75,21 @@ public partial class externalInv : Control, IItemHolder
         {
             chestSlots[i].update(null);
         }
-        
+
+        // Check if the scene is still valid
+        if (!IsInstanceValid(this))
+        {
+            GD.Print("externalInv scene is not valid.");
+            return;
+        }
+
         foreach (var kvp in chestInventory.GetInventory())
         {
             ItemEnum itemEnum = kvp.Key;
             Item item = kvp.Value;
 
-            
             Slot targetSlot = FindSlot(item, chestSlots);
-            
+
             if (targetSlot != null)
             {
                 GD.Print($"Updating chest slot {itemEnum} with {item.quantity} items. itemIndex: {targetSlot.GetIndex()}");

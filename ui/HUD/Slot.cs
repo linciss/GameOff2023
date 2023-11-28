@@ -30,13 +30,18 @@ public partial class Slot : Panel, IItemHolder
 		{
 			this.item = item;
 			Texture2D texture = GD.Load<Texture2D>(item.image);
-			label.Text = item.quantity.ToString();
-			label.Visible = true;
+			
+			if (label != null)
+			{
+				label.Text = item.quantity.ToString();
+				label.Visible = true;
+			}
+
 			float desiredWidth = 17.0f;
 			float desiredHeight = 17.0f;
 			float originalWidth = texture.GetWidth();
 			float originalHeight = texture.GetHeight();
-			
+
 			sprite.Texture = texture;
 			sprite.Scale = new Vector2(desiredWidth / originalWidth, desiredHeight / originalHeight);
 			sprite.Visible = true;

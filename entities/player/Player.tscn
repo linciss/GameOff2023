@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_8epgl"]
-[ext_resource type="PackedScene" uid="uid://bkfhyh0b61fpq" path="res://ui/HUD/HUD.tscn" id="3_41qt1"]
+[ext_resource type="PackedScene" uid="uid://cqmi6x1iuefa1" path="res://ui/HUD/HUD.tscn" id="3_41qt1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
 height = 1.0
