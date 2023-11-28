@@ -248,61 +248,48 @@ public partial class externalInv : Control, IItemHolder
         
     }
     public void swapItems()
-{
-    int grabbedIndex = currentSlotIndex;
-    int targetIndex = slotIndex;
-
-    GD.Print("SWAPPED");
-    //swapping between two different grid containers
-    if (grabbedItem != null && hoverOverItem != null)
     {
-        if (grabbedItem.GetParent() != hoverOverItem.GetParent())
+        int grabbedIndex = currentSlotIndex;
+        int targetIndex = slotIndex;
+
+        GD.Print("SWAPPED");
+        //swapping between two different grid containers
+        if (grabbedItem != null && hoverOverItem != null)
         {
-            if (grabbedItem.GetParent().Name == "PlayerGridContainer")
+            if (grabbedItem.GetParent() != hoverOverItem.GetParent())
             {
-                if (chestInventory.CanAddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity))
+                if (grabbedItem.GetParent().Name == "PlayerGridContainer")
                 {
-                    chestInventory.AddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
-                    playerInventory.RemoveItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
-                    playerInventory.PrintAllItems();
-                    int childCount = chestGridContainer.GetChildCount();
-
-                    if (childCount > 0)
-                    {
-                        Control lastItem = chestGridContainer.GetChild(childCount - 1) as Control;
-                        chestGridContainer.MoveChild(lastItem, targetIndex);
-                    }
-                    RemoveItemFromSlot(grabbedItem);
-                    UpdateChestSlots();
-                    UpdatePlayerSlots();
+                    TransferItems(playerInventory, chestInventory, chestGridContainer, targetIndex);
+                }else if (grabbedItem.GetParent().Name == "ExternalGridContainer")
+                {
+                    TransferItems(chestInventory, playerInventory, playerGridContainer, targetIndex);
                 }
-            }
-            else if (grabbedItem.GetParent().Name == "ExternalGridContainer")
+                UpdateChestSlots();
+                UpdatePlayerSlots();
+            }else
             {
-                if(playerInventory.CanAddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity))
-                {
-                    playerInventory.AddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
-                    chestInventory.GetInventory().Remove(grabbedItem.getItem().type);
-                    chestInventory.RemoveItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
-                    int childCount = playerGridContainer.GetChildCount();
-
-                    if (childCount > 0)
-                    {
-                        Control lastItem = playerGridContainer.GetChild(childCount - 1) as Control;
-
-                        playerGridContainer.MoveChild(lastItem, targetIndex);
-                    }
-                    UpdateChestSlots();
-                    UpdatePlayerSlots();
-                }
+                //swapping within the same grid container
+                grabbedItem.GetParent().MoveChild(grabbedItem, targetIndex);
+                hoverOverItem.GetParent().MoveChild(hoverOverItem, grabbedIndex);
             }
-        }
-        else
-        {
-            //swapping within the same grid container
-            grabbedItem.GetParent().MoveChild(grabbedItem, targetIndex);
-            hoverOverItem.GetParent().MoveChild(hoverOverItem, grabbedIndex);
         }
     }
-}
-}
+    public void TransferItems(IInventory fromInventory, IInventory toInventory, GridContainer toGrid, int targetIndex)
+    {
+        if (toInventory.CanAddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity))
+        {
+            toInventory.AddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
+            fromInventory.RemoveItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
+            int childCount = toGrid.GetChildCount();
+            if (childCount > 0)
+            {
+                Control lastItem = toGrid.GetChild(childCount - 1) as Control;
+
+                toGrid.MoveChild(lastItem, targetIndex);
+            }
+            RemoveItemFromSlot(grabbedItem);
+        }
+    }
+} 
+   

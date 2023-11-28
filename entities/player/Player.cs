@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using GameOff2023.entities.chest;
+using GameOff2023.ui.Forge;
 
 public partial class Player : CharacterBody3D
 {
@@ -23,6 +24,7 @@ public partial class Player : CharacterBody3D
     public inv_ui invUis;
     private Control invInstance;
     private Crafting craftInstance;
+    private Smelting smeltingInstance;
     
     // [Export]
     // private inv_ui invUi;
@@ -146,6 +148,30 @@ public partial class Player : CharacterBody3D
                 RemoveChild(craftInstance);
                 craftInstance = null;
                 craftingOpen = false;
+            }
+        }
+
+        if (Input.IsActionJustPressed("open_forge") && !opened)
+        {
+            if (smeltingInstance == null)
+            {
+                PackedScene smeltingScene = GD.Load<PackedScene>("res://ui/HUD/forge.tscn");
+                if (smeltingScene != null)
+                {
+                    smeltingInstance = (Smelting)smeltingScene.Instantiate();
+                    AddChild(smeltingInstance);
+                    smeltingInstance.Visible = true;
+                    opened = true;
+                }
+            }
+        }else if(Input.IsActionJustPressed("open_forge") && opened)
+        {
+            if(smeltingInstance != null && IsInstanceValid(smeltingInstance))
+            {
+                smeltingInstance.Visible = false;
+                RemoveChild(smeltingInstance);
+                smeltingInstance = null;
+                opened = false;
             }
         }
     }

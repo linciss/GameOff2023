@@ -5,12 +5,12 @@
 
 [sub_resource type="Gradient" id="Gradient_aw5p7"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_b0btb"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_62w35"]
 gradient = SubResource("Gradient_aw5p7")
 fill_from = Vector2(0.662162, 0.834459)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_f2yw8"]
-specular_texture = SubResource("GradientTexture2D_b0btb")
+specular_texture = SubResource("GradientTexture2D_62w35")
 specular_color = Color(0.392157, 0.117647, 0.14902, 1)
 
 [node name="Crafting" type="Control" node_paths=PackedStringArray("playerGrid", "craftingGrid")]
