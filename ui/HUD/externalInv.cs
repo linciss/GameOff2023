@@ -10,7 +10,7 @@ using GameOff2023.globals.Inventory;
 public partial class externalInv : Control, IItemHolder
 {
     [Export]private Slot[] playerSlots;
-   [Export]private Slot[] chestSlots;
+    [Export]private Slot[] chestSlots;
     [Export] private GridContainer playerGridContainer;
     [Export]private GridContainer chestGridContainer;
     private Slot grabbedItem { get; set; }
