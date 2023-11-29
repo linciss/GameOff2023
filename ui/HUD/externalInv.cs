@@ -46,9 +46,12 @@ public partial class externalInv : Control, IItemHolder
                 playerSlots[i] = childNode as Slot;
             }
         }
+        
         Visible = false;
         UpdateChestSlots();
         UpdatePlayerSlots();
+        Array.Sort(chestSlots, (a, b) => a.GetIndex().CompareTo(b.GetIndex()));
+        Array.Sort(playerSlots, (a, b) => a.GetIndex().CompareTo(b.GetIndex()));
     }
     
     public void SetChestInventory(IInventory newInventory, string entity)
@@ -71,55 +74,37 @@ public partial class externalInv : Control, IItemHolder
     public void UpdateChestSlots()
     {
         // Wipe invUI
-        for (int i = 0; i < chestSlots.Length; i++)
+        foreach (var slot in chestSlots)
         {
-            chestSlots[i].update(null);
+            slot.update(null);
         }
 
-        // Check if the scene is still valid
-        if (!IsInstanceValid(this))
+        foreach (var chestSlot in chestSlots)
         {
-            GD.Print("externalInv scene is not valid.");
-            return;
-        }
-
-        foreach (var kvp in chestInventory.GetInventory())
-        {
-            ItemEnum itemEnum = kvp.Key;
-            Item item = kvp.Value;
-
-            Slot targetSlot = FindSlot(item, chestSlots);
-
-            if (targetSlot != null)
+            Item item = chestInventory.GetItemAtIndex(chestSlot.GetIndex());
+            if (item != null)
             {
-                GD.Print($"Updating chest slot {itemEnum} with {item.quantity} items. itemIndex: {targetSlot.GetIndex()}");
-                targetSlot.update(item);
-                targetSlot.SetCurrentSlotItem(item);
+                chestSlot.update(item);
+                chestSlot.SetCurrentSlotItem(item);
             }
         }
     }
 
     public void UpdatePlayerSlots()
     {
-        
-        for (int i = 0; i < playerSlots.Length; i++)
+        // Wipe invUI
+        foreach (var slot in playerSlots)
         {
-            playerSlots[i].update(null);
+            slot.update(null);
         }
-        
-        foreach (var kvp in playerInventory.GetInventory())
-        {
-            ItemEnum itemEnum = kvp.Key;
-            Item item = kvp.Value;
 
-            
-            Slot targetSlot = FindSlot(item, playerSlots);
-            
-            if (targetSlot != null)
+        foreach (var playerSlot in playerSlots)
+        {
+            Item item = playerInventory.GetItemAtIndex(playerSlot.GetIndex());
+            if (item != null)
             {
-                GD.Print($"Updating player slot {itemEnum} with {item.quantity} items. itemIndex: {targetSlot.GetIndex()}");
-                targetSlot.update(item);
-                targetSlot.SetCurrentSlotItem(item);
+                playerSlot.update(item);
+                playerSlot.SetCurrentSlotItem(item);
             }
         }
     }

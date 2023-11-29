@@ -9,5 +9,6 @@ public interface IInventory
     void AddItem(ItemEnum itemEnum, int quantity);
     void RemoveItem(ItemEnum itemEnum, int quantity);
     bool CanAddItem(ItemEnum itemEnum, int quantity);
+    Item GetItemAtIndex(int index);
     void PrintAllItems();
 }

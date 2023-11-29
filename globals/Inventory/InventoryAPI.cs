@@ -87,5 +87,16 @@ public partial class InventoryAPI : Node, IInventory
 
         return true;
     }
+    public Item GetItemAtIndex(int index)
+    {
+        var items = new List<Item>(inventory.Values);
+        
+        if (index >= 0 && index < items.Count)
+        {
+            return items[index];
+        }
+
+        return null;
+    }
 
 }
