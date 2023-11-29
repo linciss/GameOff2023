@@ -264,8 +264,10 @@ public partial class externalInv : Control, IItemHolder
     {
         if (toInventory.CanAddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity))
         {
-            toInventory.AddItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
-            fromInventory.RemoveItem(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
+            int transferQuantity = toInventory.CalculateTransferQuantity(grabbedItem.getItem().type, grabbedItem.getItem().quantity);
+
+            toInventory.AddItem(grabbedItem.getItem().type, transferQuantity);
+            fromInventory.RemoveItem(grabbedItem.getItem().type, transferQuantity);
             int childCount = toGrid.GetChildCount();
             if (childCount > 0)
             {
@@ -273,7 +275,7 @@ public partial class externalInv : Control, IItemHolder
 
                 toGrid.MoveChild(lastItem, targetIndex);
             }
-            RemoveItemFromSlot(grabbedItem);
+            AddItemToSlot(grabbedItem);
         }
     }
 } 

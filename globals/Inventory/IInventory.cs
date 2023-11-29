@@ -10,5 +10,6 @@ public interface IInventory
     void RemoveItem(ItemEnum itemEnum, int quantity);
     bool CanAddItem(ItemEnum itemEnum, int quantity);
     Item GetItemAtIndex(int index);
+    int CalculateTransferQuantity(ItemEnum itemEnum, int requestedQuantity);
     void PrintAllItems();
 }

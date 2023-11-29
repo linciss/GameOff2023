@@ -38,8 +38,8 @@ public partial class Player : CharacterBody3D
         Instance = this;
         player_instance.setPlayer(this);
         mesh = GetNode<MeshInstance3D>("MeshInstance3D");
-        inventory.AddItem(ItemEnum.RawSteel, 10);
-        inventory.AddItem(ItemEnum.RawCopper, 10);
+        inventory.AddItem(ItemEnum.RawSteel, 199);
+        inventory.AddItem(ItemEnum.RawCopper, 199);
         PackedScene invScene = GD.Load<PackedScene>("res://ui/HUD/player_ui.tscn");
         if (invScene != null)
         {

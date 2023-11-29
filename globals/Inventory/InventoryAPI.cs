@@ -73,19 +73,35 @@ public partial class InventoryAPI : Node, IInventory
     
     public bool CanAddItem(ItemEnum itemEnum, int quantity)
     {
-        if (inventory.ContainsKey(itemEnum)) 
+        if (inventory.ContainsKey(itemEnum))
         {
-            if (inventory[itemEnum].quantity + quantity > ItemFactory.GetItemMaxStackSize(itemEnum)) 
+            int remainingSpace = ItemFactory.GetItemMaxStackSize(itemEnum) - inventory[itemEnum].quantity;
+            
+            int transferQuantity = Math.Min(quantity, remainingSpace);
+            
+            if (inventory.Count + 1 > maxSlots)
+            {
+                return false;
+            }
+            
+            if (transferQuantity > 0)
+            {
+                return true;
+            }
+            else
             {
                 return false;
             }
         }
-        if (inventory.Count + 1 > maxSlots) 
+        else
         {
-            return false;
-        }
+            if (inventory.Count + 1 > maxSlots)
+            {
+                return false;
+            }
 
-        return true;
+            return true;
+        }
     }
     public Item GetItemAtIndex(int index)
     {
@@ -97,6 +113,18 @@ public partial class InventoryAPI : Node, IInventory
         }
 
         return null;
+    }
+    public int CalculateTransferQuantity(ItemEnum itemEnum, int requestedQuantity)
+    {
+        if (inventory.ContainsKey(itemEnum))
+        {
+            int remainingSpace = ItemFactory.GetItemMaxStackSize(itemEnum) - inventory[itemEnum].quantity;
+            return Math.Min(requestedQuantity, remainingSpace);
+        }
+        else
+        {
+            return requestedQuantity;
+        }
     }
 
 }
