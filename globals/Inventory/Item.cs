@@ -19,7 +19,7 @@ public enum ItemEnum
     Hydrogen
 }
 
-public class Item
+public class Item 
 {
     public string name { get; set; }
     public ItemEnum type { get; set; }

@@ -1,4 +1,5 @@
-﻿using GameOff2023.entities.placeable;
+using GameOff2023.entities.placeable;
+using GameOff2023.globals.Inventory;
 using GameOff2023.random;
 using Godot;
 
@@ -20,6 +21,11 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
         PackedScene prefab = (PackedScene)ResourceLoader.Load("res://entities/cell_items/placeable/chest/chest_machine.tscn");
         AddChild(prefab.Instantiate());
         tree.CurrentScene.GetNode<Node3D>("/root/Asteroid/PlayerPlaceable/").AddChild(this);
+        
+        inventory = new InventoryAPI();
+        inventory.AddItem(ItemEnum.RawCopper, quantity);
+        
+    }
 
         inventory.AddItem(ItemEnum.RawSteel, 2);
         inventory.PrintAllItems();

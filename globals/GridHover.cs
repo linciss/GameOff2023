@@ -25,7 +25,6 @@ public partial class GridHover : Node3D
     private PlaceableType placeableType = PlaceableType.None;
 
     Player player;
-    inv_ui invUI;
     private static GridHover Instance { get; set; }  
     public static GridHover getInstance()
     {
@@ -38,7 +37,6 @@ public partial class GridHover : Node3D
         Instance = this;
         player = Player.GetPlayer();
         progressBar.MaxValue = mineTime;
-        invUI = GetNode<inv_ui>("/root/Asteroid/CanvasLayer/InvUI");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -107,34 +105,48 @@ public partial class GridHover : Node3D
     Cell lastCell = null; 
     public void handleHover(Cell cell, double delta)
     {
-        //Checks if the cell is changed
-        if (cell != lastCell)
+        if (!player.getOpened())
         {
-            holdTime = 0.0f;
-            lastCell = cell;
-        }
-        
-        //Detect if left click
-        if (Input.IsActionPressed("left_mouse_click") && !placeMode)
-        {
-
-            isHeld = true;
-            holdTime += (float)delta;
-            progressBar.Value = holdTime / mineTime;
-
-            progressBar.Visible = true;
-
-            if (holdTime >= mineTime)
+            //Checks if the cell is changed
+            if (cell != lastCell)
             {
-                mineItem(cell);
+                holdTime = 0.0f;
+                lastCell = cell;
+            }
+        
+            //Detect if left click
+            if (Input.IsActionPressed("left_mouse_click") && !placeMode)
+            {
+
+                isHeld = true;
+                holdTime += (float)delta;
+                progressBar.Value = holdTime / mineTime;
+
+                progressBar.Visible = true;
+
+                if (holdTime >= mineTime)
+                {
+                    mineItem(cell);
+                }
+            }else if (Input.IsActionJustPressed("open_placeable"))
+            {
+                if (cell.getCellItem() is ChestMachine)
+                {
+                    ChestMachine chestMachine = (ChestMachine)cell.getCellItem();
+                    if (!player.getOpened())
+                    {
+                        chestMachine.handleOpen();
+                    }
+                }
+            }
+            else
+            {
+                isHeld = false;
+                holdTime = 0.0f;
+                progressBar.Visible = false;
             }
         }
-        else
-        {
-            isHeld = false;
-            holdTime = 0.0f;
-            progressBar.Visible = false;
-        }
+       
     }
 
     public void handleRotation()
@@ -162,10 +174,10 @@ public partial class GridHover : Node3D
 
         //If scoobi doobi do is Ore
         IOre ore = (IOre)item;
-        player.inventoryAPI.AddItem(ore.getOreType(), 1);
+        player.inventory.AddItem(ore.getOreType(), 1);
         
         holdTime = 0.0f;
-        player.inventoryAPI.PrintAllItems();
+        player.inventory.PrintAllItems();
     }
 
     public void handleHoverPlace(Vector3I pos, double delta)
@@ -216,7 +228,7 @@ public partial class GridHover : Node3D
         //    
         // }
     }
-    
+
     public void setPlaceMode(bool placeMode)
     {
         this.placeMode = placeMode;

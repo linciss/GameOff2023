@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/player/Player.cs" id="1_63rsw"]
 [ext_resource type="Script" path="res://entities/player/SmoothCamera.gd" id="2_8epgl"]
-[ext_resource type="Script" path="res://globals/Inventory/InventoryAPI.cs" id="3_eey8f"]
+[ext_resource type="PackedScene" uid="uid://cqmi6x1iuefa1" path="res://ui/HUD/HUD.tscn" id="3_41qt1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ntpgi"]
 height = 1.0
@@ -75,9 +75,14 @@ shape = SubResource("SeparationRayShape3D_cg2v6")
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, 0.353553, -0.612373, 0, 0.866026, 0.5, 0.707107, -0.353553, 0.612373, -10, 10, 10)
 projection = 1
-current = true
 size = 15.0
 script = ExtResource("2_8epgl")
 
 [node name="Node" type="Node" parent="."]
-script = ExtResource("3_eey8f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" parent="CanvasLayer" instance=ExtResource("3_41qt1")]
+visible = false
+offset_left = 2.0
+offset_right = 2.0

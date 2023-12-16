@@ -1,0 +1,197 @@
+[gd_scene load_steps=6 format=3 uid="uid://b62n6o4qe4t6p"]
+
+[ext_resource type="Script" path="res://ui/Forge/Smelting.cs" id="1_vyhak"]
+[ext_resource type="PackedScene" uid="uid://dh5tcbot28823" path="res://ui/HUD/slot.tscn" id="2_wrv2s"]
+
+[sub_resource type="Gradient" id="Gradient_7qxcp"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b0btb"]
+gradient = SubResource("Gradient_7qxcp")
+fill_from = Vector2(0.662162, 0.834459)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rcl6i"]
+specular_texture = SubResource("GradientTexture2D_b0btb")
+specular_color = Color(0.392157, 0.117647, 0.14902, 1)
+
+[node name="Forge" type="Control" node_paths=PackedStringArray("playerSlots", "inputSlot", "outputSlot", "playerGridContainer", "progressBar", "heldItemSprite", "inputGrid", "outputGrid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vyhak")
+playerSlots = []
+inputSlot = NodePath("Forge/Input/Slot")
+outputSlot = NodePath("Forge/Output/Slot")
+playerGridContainer = NodePath("Player/PlayerGridContainer")
+progressBar = NodePath("Forge/ProgressBar")
+heldItemSprite = NodePath("Sprite2D")
+inputGrid = NodePath("Forge/Input")
+outputGrid = NodePath("Forge/Output")
+metadata/_edit_group_ = true
+
+[node name="Forge" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -101.5
+offset_right = 256.0
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_rcl6i")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Label" type="Label" parent="Forge"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 1.0
+offset_right = 149.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Forge
+"
+
+[node name="Output" type="GridContainer" parent="Forge"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 47.0
+offset_top = -25.0
+offset_right = 97.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot" parent="Forge/Output" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Input" type="GridContainer" parent="Forge"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.5
+offset_top = -25.0
+offset_right = -54.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot" parent="Forge/Input" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="Forge"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -13.5
+offset_right = 41.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 2.0
+
+[node name="Player" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -101.5
+offset_right = 4.0
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_rcl6i")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Label" type="Label" parent="Player"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 1.0
+offset_right = 151.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Player
+"
+
+[node name="PlayerGridContainer" type="GridContainer" parent="Player"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -79.0
+offset_right = 106.0
+offset_bottom = 79.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="Slot" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Slot2" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot3" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot4" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot5" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot6" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot7" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot8" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot9" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot10" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot11" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Slot12" parent="Player/PlayerGridContainer" instance=ExtResource("2_wrv2s")]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
