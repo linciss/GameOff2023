@@ -77,16 +77,21 @@ public partial class GridHover : Node3D
             //Sets hover objects postion
             Position = GridSystem.translateToRelativePos(targetPos);
             
-            GD.Print("real: "+ targetPos);
-            GD.Print("relative: "+ GridSystem.translateToRelativePos(targetPos));
-            GD.Print("grid: "+ GridSystem.translateToGridPos(targetPos));
+            if (normal == Vector3.Zero)
+            {
+                targetNormal = new Vector3(0, 1, 0);
+            }
+            else
+            {
+                targetNormal = normal;
+            }
 
             if (placeMode)
             {
                 handleHoverPlace(GridSystem.translateToGridPos(Position), delta);
             }else if (GridSystem.getCell(GridSystem.translateToGridPos(Position)).hasCellItem())
             {
-                handleHover(GridSystem.getCell((Vector3I)targetPos), delta);
+                handleHover(GridSystem.getCell(GridSystem.translateToGridPos(Position)), delta);
             }else
             {
                 isHeld = false;
@@ -191,6 +196,19 @@ public partial class GridHover : Node3D
             }
             if (toBePlaced == null) return;
             GridSystem.setPosition( pos, toBePlaced );
+        }
+
+        if (Input.IsActionJustPressed("middle_mouse_click"))
+        {
+            Vector3I gridPos = GridSystem.translateToGridPos(pos);
+            if (GridSystem.getCell(gridPos).hasCellItem())
+            {
+                if (GridSystem.getCell(gridPos).getCellItem() is IPlaceable placeable)
+                {
+                    placeable.getInventory().PrintAllItems();
+                }
+            }
+            
         }
         // else if (Input.IsActionJustPressed("right_mouse_click"))
         // {

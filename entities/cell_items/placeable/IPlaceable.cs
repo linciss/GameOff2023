@@ -9,6 +9,8 @@ public interface IPlaceable
     public PlaceableType getType();
     
     public Vector3 getRotation();
+    
+    public InventoryAPI getInventory();
 
     public void tick();
 }

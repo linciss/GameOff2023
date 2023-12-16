@@ -39,15 +39,23 @@ public class Item
 
     public bool AddQuantity(int amount)
     {
+        GD.PrintErr("TRYING TO ADD QUANITTY");
+        GD.Print("nax quantity: " + maxQuantity);
         if (quantity + amount > maxQuantity)
         {
             quantity = maxQuantity;
+            GD.Print("max quantity reached");
             return false;
         }
         quantity += amount;
+        GD.Print("amount to be addeed: " + amount);
+        GD.Print("new quantity: " + quantity);
         return true;
     }
 
+    /**
+     * false if quantity is 0
+     */
     public bool RemoveQuantity(int amount)
     {
         if (quantity - amount <= 0)

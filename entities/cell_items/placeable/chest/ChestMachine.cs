@@ -21,7 +21,7 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
         AddChild(prefab.Instantiate());
         tree.CurrentScene.GetNode<Node3D>("/root/Asteroid/PlayerPlaceable/").AddChild(this);
 
-        inventory.AddItem(ItemEnum.RawSteel, 5);
+        inventory.AddItem(ItemEnum.RawSteel, 2);
         inventory.PrintAllItems();
         GD.Print("CHEST PLACED AT: "+ cell.getPosition());
     }
@@ -48,13 +48,10 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
 
     public void tick()
     {
-        GD.Print("CHEST TICK!!!!!!!!");
+        GD.Print("CHEST TICK!!!!!!!! " + cell.getPosition());
         // Iterate over neighboring cells
         foreach (Vector3I neighbor in cell.getNeighbours().Values)
         {
-            // Debug message: "Checking neighbor cell: " + neighbor
-            GD.Print("Checking neighbor cell: " + neighbor);
-
             // Get the neighboring cell
             Cell targetCell = GridSystem.getCell(cell.getPosition() + neighbor);
 
@@ -62,7 +59,7 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
             if (!targetCell.hasCellItem())
             {
                 // Debug message: "Neighbor cell does not have a cell item"
-                GD.Print("Neighbor cell does not have a cell item");
+                GD.Print("Neighbor cell does not have a cell  " + neighbor);
                 continue;
             }
 
@@ -80,14 +77,17 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
             // Get the first item from the inventory
             Item item = inventory.TakeFirstItem();
 
-            // Debug message: "Getting first item from inventory: " + item
+            GD.Print("Checking if item null");
+            if (item == null) continue;
+
+                // Debug message: "Getting first item from inventory: " + item
             GD.Print("Getting first item from inventory: " + item);
 
             // Check if the machine input can input the item
             if (!(machineInput.canInput(item.GetType(), 1, this)))
             {
                 // Debug message: "Machine input cannot input item: " + item
-                GD.Print("Machine input cannot input item: " + item);
+                GD.Print("Machine input cannot input item: " + item.GetType());
                 continue;
             }
 
@@ -95,7 +95,7 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
             machineInput.input(item.GetType(), 1);
 
             // Debug message: "Inputting item: " + item
-            GD.Print("Inputting item: " + item);
+            GD.Print("Inputting item: " + item.GetType());
 
             // Remove the item from the inventory
             inventory.RemoveItem(item.GetType(), 1);
@@ -113,7 +113,15 @@ public partial class ChestMachine : Node3D, ICellItem, IPlaceable, IMachineInput
 
     public void input(ItemEnum item, int quantity)
     {
+        GD.PrintErr("CHEST RECIEVED");
         inventory.AddItem(item, quantity);
+        
+        inventory.PrintAllItems();
+    }
+    
+    public InventoryAPI getInventory()
+    {
+        return inventory;
     }
     
 }

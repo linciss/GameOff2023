@@ -58,12 +58,16 @@ public partial class InventoryAPI : Node, IInventory
         if (inventory.ContainsKey(itemEnum)) {
             // Check if adding the specified quantity would exceed the item's maximum stack size
             if (inventory[itemEnum].quantity + quantity > ItemFactory.GetItemMaxStackSize(itemEnum)) {
+                GD.PrintErr("MAX STACK SIZE REACHED");
                 return false;
             }
+            // if doesnt means that item exists and we can add to it 
+            return true;
         }
 
         // Check if adding the item would exceed the total inventory slots
         if (inventory.Count + 1 > maxSlots) {
+            GD.PrintErr("max slots reached");   
             return false;
         }
 

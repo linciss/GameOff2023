@@ -13,7 +13,7 @@ public partial class GridSystem : Node3D
 
     static Dictionary<Vector3I, Cell> grid = new Godot.Collections.Dictionary<Vector3I, Cell>();
 
-    private float passedTime = 0f;
+    private static float passedTime = 0f;
     
     GridSystem()
     {
@@ -33,7 +33,7 @@ public partial class GridSystem : Node3D
         if (passedTime > getTickSpeed())
         {
             passedTime = 0f;
-           // tickPlaceables();
+            tickPlaceables();
         }
         passedTime += (float) delta;
     }
@@ -73,7 +73,11 @@ public partial class GridSystem : Node3D
     
     public static Vector3I translateToGridPos(Vector3 pos)
     {
-        return (Vector3I) pos;
+        return new Vector3I(
+            (int) Math.Floor(pos.X),
+            (int) Math.Floor(pos.Y),
+            (int) Math.Floor(pos.Z)
+        );
     }
     
     public static float getTickSpeed()
@@ -95,6 +99,11 @@ public partial class GridSystem : Node3D
         }
         i++;
         GD.Print("Tick!!!   :"+i);
+    }
+
+    public static float getProgressToTick()
+    {
+        return passedTime / getTickSpeed();
     }
     
     
